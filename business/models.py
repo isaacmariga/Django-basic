@@ -63,11 +63,17 @@ class Deaths(models.Model):
 					table = int("".join(map(str,table)))
 					return table
 
+EXPENSES =(("Food","Food"),
+("Health","Health"),
+("Utilities","Utilities"),
+
+)
+
 
 
 class Expenses(models.Model):
 	amount = models.IntegerField()
-	expense = models.CharField(max_length=30)
+	expense = models.CharField(choices = EXPENSES, max_length=30)
 	details = models.TextField(max_length=300)
 	date = models.DateTimeField(auto_now_add=False)
 	batch = models.ForeignKey(Batch, on_delete=models.CASCADE)

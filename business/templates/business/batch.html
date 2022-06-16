@@ -3,13 +3,53 @@
 {% block content %}
 {{block.super}}
 {% for death in deaths%}
-<p>{{death.reason}}</p>
+<p>Death reason{{death.reason}}</p>
 
 {% endfor%}
-<p>{{d_sum}}</p>
-<p>{{b_p}}</p>
-<p>{{t_e}}</p>
-<p>{{profit}}</p>
+<p>Total deaths {{d_sum}}</p>
+<p>Buying price {{b_p}}</p>
+<p>Total Expenses {{t_e}}</p>
+<p>Expected Profit{{exp_profit}}</p>
+<p>Gross revenue{{rev}}</p>
+<p>net Profit{{real_profit}}</p>
+
+
+
+<!-- Charts -->
+<div>
+  <canvas id="myChart"></canvas>
+</div>
+ 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const labels = {{label|safe}};
+
+  const data = {
+    labels: labels,
+    datasets: [{
+      label: 'My First dataset',
+      backgroundColor: ['red','blue','orange'],
+      borderColor: 'rgb(255, 99, 132)',
+      data: {{data|safe}},
+    }]
+  };
+
+  const config = {
+    type: 'bar',
+    data: data,
+    options: {}
+  };
+</script>
+
+
+<script>
+  const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+</script>
+
 
 {% endblock %}
 

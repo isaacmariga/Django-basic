@@ -2,6 +2,9 @@ from django.db import models
 from django.db.models import Avg, Sum
 
 # Create your models here.
+
+
+
 class Batch(models.Model):
 	purchased = models.IntegerField()
 	unit_price = models.IntegerField()
@@ -25,7 +28,17 @@ class Batch(models.Model):
 			cost = u_p * purch
 			return cost
 
+class Customers(models.Model):
+	Name = models.CharField(max_length=30)
+	number = models.IntegerField()
+	date = models.DateTimeField(auto_now_add=False)
+	batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
 
+
+	def __str__(self):
+		return str(self.id)
+
+		
 class Deaths(models.Model):
 	number = models.IntegerField()
 	reason = models.TextField(max_length=300)
@@ -76,19 +89,31 @@ class Expenses(models.Model):
 					
 
 class Revenue(models.Model):
-	SP = models.IntegerField()
+	sell_price = models.IntegerField()
 	number = models.IntegerField()
 	date = models.DateTimeField(auto_now_add=False)
 	batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
+	customer = models.ManyToManyField(Customers)
 
 	def __str__(self):
 		return str(self.id)
 
+	@classmethod
+	def total_revenue(cls, id):
+			s_price = list(Revenue.objects.filter(batch_id=id).aggregate(Sum('sell_price')).values())
+			test = all( i == None for i in s_price)
+			if (test) == True:
+					return 1
+			else:
+					s_price = int("".join(map(str,s_price)))
+			num = list(Revenue.objects.filter(batch_id=id).aggregate(Sum('number')).values())
+			test = all( i == None for i in num)
+			if (test) == True:
+					return 1
+			else:
+					num = int("".join(map(str,num)))
 
-# def profit():
-class Editors(models.Model):
-    editor_name = models.CharField(max_length=200)
-    num_users = models.IntegerField()
+			total = s_price * num
 
-    def __str__(self):
-        return "{}-{}".format(self.editor_name, self.num_users)
+			return total					
+	

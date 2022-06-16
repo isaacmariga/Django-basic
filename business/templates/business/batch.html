@@ -1,0 +1,16 @@
+{%extends 'business/base.html'%}
+
+{% block content %}
+{{block.super}}
+{% for death in deaths%}
+<p>{{death.reason}}</p>
+
+{% endfor%}
+<p>{{d_sum}}</p>
+<p>{{b_p}}</p>
+<p>{{t_e}}</p>
+<p>{{profit}}</p>
+
+{% endblock %}
+
+

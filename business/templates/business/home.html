@@ -1,0 +1,11 @@
+{%extends 'business/base.html'%}
+
+{% block content %}
+{{block.super}}
+{% for project in projects%}
+<p>{{project.purchased}}</p>
+<a href="{% url 'batch' project.id%}">Test</a>
+{% endfor%}
+{% endblock %}
+
+

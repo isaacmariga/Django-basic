@@ -68,7 +68,7 @@ def new_batch(request):
 
 
 @login_required(login_url='/accounts/login/')
-def new_death(request):
+def new_death(request, id):
 	batch = Batch.get_by_id(id)
 	current_user = request.user			
 	if request.method == 'POST':
@@ -78,7 +78,7 @@ def new_death(request):
 			name.user = current_user
 			name.batch = batch
 			name.save()
-		return redirect( 'home' )
+		return redirect( 'batch', batch.id )
 	else:
 		form = DeathsForm()
 			
@@ -97,7 +97,7 @@ def new_customer(request, id):
 			name.user = current_user
 			name.batch = batch
 			name.save()
-		return redirect( 'home' )
+		return redirect( 'batch', batch.id )
 	else:
 		form = CustomersForm()
 			
@@ -106,7 +106,7 @@ def new_customer(request, id):
 
 
 @login_required(login_url='/accounts/login/')
-def new_expense(request):
+def new_expense(request, id):
 	batch = Batch.get_by_id(id)
 	current_user = request.user			
 	if request.method == 'POST':
@@ -116,7 +116,7 @@ def new_expense(request):
 			name.user = current_user
 			name.batch = batch
 			name.save()
-		return redirect( 'home' )
+		return redirect( 'batch', batch.id)
 	else:
 		form = ExpensesForm()
 			
@@ -125,7 +125,7 @@ def new_expense(request):
 
 	
 @login_required(login_url='/accounts/login/')
-def new_revenue(request):
+def new_revenue(request, id):
 	batch = Batch.get_by_id(id)
 	current_user = request.user			
 	if request.method == 'POST':
@@ -135,7 +135,7 @@ def new_revenue(request):
 			name.user = current_user
 			name.batch = batch
 			name.save()
-		return redirect( 'home' )
+		return redirect( 'batch', batch.id )
 	else:
 		form = RevenueForm()
 			

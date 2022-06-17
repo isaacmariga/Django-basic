@@ -13,10 +13,10 @@
 <p>Gross revenue{{rev}}</p>
 <p>net Profit{{real_profit}}</p>
 <p> batch--{{ batch.id}}</p>
-<a href="{%url 'new_death' %}">death</a>
+<a href="{%url 'new_death' batch.id%}">death</a>
 <a href="{%url 'new_customer' batch.id%}">customer</a>
-<a href="{%url 'new_revenue'%}">revenue</a>
-<a href="{%url 'new_expense'%}">expense</a>
+<a href="{%url 'new_revenue' batch.id%}">revenue</a>
+<a href="{%url 'new_expense' batch.id%}">expense</a>
 
 
 <!-- Charts -->

@@ -77,6 +77,7 @@ class Deaths(models.Model):
 EXPENSES =(("Food","Food"),
 ("Health","Health"),
 ("Utilities","Utilities"),
+("miscellaneous", "miscellaneous")
 
 )
 
@@ -91,7 +92,7 @@ class Expenses(models.Model):
 
 
 	def __str__(self):
-		return str(self.id)
+		return str(f"expense-{self.expense} {self.id}")
 
 
 	@classmethod

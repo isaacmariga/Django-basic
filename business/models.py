@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 
 
 class Batch(models.Model):
-	animal = models.CharField(max_length=30)
+	farm = models.CharField(max_length=30)
 	picture = models.ImageField(upload_to = 'batch/', blank=True, null=True)
 	purchased = models.IntegerField()
 	unit_price = models.IntegerField()
@@ -27,7 +27,7 @@ class Batch(models.Model):
 
 	@classmethod
 	def get_by_id(cls, id):
-		result = Batch.objects.get(id=id)
+		result = cls.objects.get(id=id)
 		return result
 	
 	def total_cost(id):

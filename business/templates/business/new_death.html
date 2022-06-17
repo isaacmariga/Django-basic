@@ -4,7 +4,7 @@
 {{block.super}}
 
 
-<form action="{%url 'new_death'%}" method="post" enctype="multipart/form-data">
+<form action="{%url 'new_death' batch.id%}" method="post" enctype="multipart/form-data">
   {%csrf_token%}
 
   {% bootstrap_form form%}

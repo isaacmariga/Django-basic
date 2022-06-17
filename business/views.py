@@ -20,6 +20,8 @@ def batch(request, id):
 	b_p = Batch.total_cost(id)
 	t_e = Expenses.expense_sum(id)
 	rev = Revenue.total_revenue(id)
+	batch = Batch.get_by_id(id)
+
 	exp_profit = b_p - t_e
 	real_profit = rev - t_e
 
@@ -33,7 +35,7 @@ def batch(request, id):
 
 
 	return render(request, 'business/batch.html',
-	{'deaths':deaths, 'id':id, 'd_sum':d_sum, 'b_p':b_p, 't_e':t_e, 'exp_profit':exp_profit,'label':label, 'data':data, 'rev':rev, 'real_profit':real_profit})
+	{'deaths':deaths, 'id':id, 'd_sum':d_sum, 'b_p':b_p, 't_e':t_e, 'exp_profit':exp_profit,'label':label, 'data':data, 'rev':rev, 'real_profit':real_profit, 'batch':batch})
 
 
 def charts(request):
@@ -85,19 +87,21 @@ def new_death(request):
 
 
 @login_required(login_url='/accounts/login/')
-def new_customer(request):
+def new_customer(request, id):
+	batch = Batch.get_by_id(id)
 	current_user = request.user			
 	if request.method == 'POST':
 		form = CustomersForm(request.POST, request.FILES)
 		if form.is_valid():
 			name = form.save(commit=False)
 			name.user = current_user
+			name.batch = batch
 			name.save()
 		return redirect( 'home' )
 	else:
 		form = CustomersForm()
 			
-	return render(request, 'business/new_customer.html', {'form': form})
+	return render(request, 'business/new_customer.html', {'form': form, 'batch':batch})
 
 
 

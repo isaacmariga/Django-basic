@@ -41,6 +41,10 @@ DATABASES = {
 
 # Application definition
 
+
+ACCOUNT_ACTIVATION_DAYS = 7  =(days application will remain active without logging in)
+
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',

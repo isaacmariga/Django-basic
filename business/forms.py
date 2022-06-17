@@ -1,6 +1,6 @@
 from django import forms
 from .models import Batch, Deaths, Expenses, Revenue, Customers
-from bootstrap_datepicker_plus.widgets import DatePickerInput,
+from bootstrap_datepicker_plus.widgets import DatePickerInput
 
 class BatchForm(forms.ModelForm):
   class Meta:

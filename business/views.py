@@ -4,6 +4,7 @@ from .forms import BatchForm, DeathsForm, ExpensesForm, RevenueForm
 from django.contrib.auth.decorators import login_required
 
 
+
 # Create your views here.
 
 

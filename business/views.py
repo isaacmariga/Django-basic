@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import Batch, Deaths, Expenses, Revenue
-from .forms import BatchForm, DeathsForm, ExpensesForm, RevenueForm
+from .models import Batch, Deaths, Expenses, Revenue, Customers
+from .forms import BatchForm, DeathsForm, ExpensesForm, RevenueForm, CustomersForm
 from django.contrib.auth.decorators import login_required
 
 
@@ -57,8 +57,78 @@ def new_batch(request):
 			name = form.save(commit=False)
 			name.user = current_user
 			name.save()
-		return redirect( home )
+		return redirect( 'home' )
 	else:
 		form = BatchForm()
 			
 	return render(request, 'business/new_batch.html', {'form': form})
+
+
+
+@login_required(login_url='/accounts/login/')
+def new_death(request):
+	batch = Batch.get_by_id(id)
+	current_user = request.user			
+	if request.method == 'POST':
+		form = DeathsForm(request.POST)
+		if form.is_valid():
+			name = form.save(commit=False)
+			name.user = current_user
+			name.batch = batch
+			name.save()
+		return redirect( 'home' )
+	else:
+		form = DeathsForm()
+			
+	return render(request, 'business/new_death.html', {'form': form})
+
+
+
+@login_required(login_url='/accounts/login/')
+def new_customer(request):
+	current_user = request.user			
+	if request.method == 'POST':
+		form = CustomersForm(request.POST, request.FILES)
+		if form.is_valid():
+			name = form.save(commit=False)
+			name.user = current_user
+			name.save()
+		return redirect( 'home' )
+	else:
+		form = CustomersForm()
+			
+	return render(request, 'business/new_customer.html', {'form': form})
+
+
+
+@login_required(login_url='/accounts/login/')
+def new_expense(request):
+	current_user = request.user			
+	if request.method == 'POST':
+		form = ExpensesForm(request.POST, request.FILES)
+		if form.is_valid():
+			name = form.save(commit=False)
+			name.user = current_user
+			name.save()
+		return redirect( 'home' )
+	else:
+		form = ExpensesForm()
+			
+	return render(request, 'business/new_expense.html', {'form': form})
+
+
+	
+@login_required(login_url='/accounts/login/')
+def new_revenue(request):
+	current_user = request.user			
+	if request.method == 'POST':
+		form = RevenueForm(request.POST, request.FILES)
+		if form.is_valid():
+			name = form.save(commit=False)
+			name.user = current_user
+			name.save()
+		return redirect( 'home' )
+	else:
+		form = RevenueForm()
+			
+	return render(request, 'business/new_revenue.html', {'form': form})

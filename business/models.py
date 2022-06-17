@@ -23,6 +23,12 @@ class Batch(models.Model):
 	def get_all():
 		result = Batch.objects.all()
 		return result
+
+
+	@classmethod
+	def get_by_id(cls, id):
+		result = Batch.objects.get(id=id)
+		return result
 	
 	def total_cost(id):
 			u_p = list(Batch.objects.filter(id=id).aggregate(Sum('unit_price')).values())

@@ -13,8 +13,8 @@ class Batch(models.Model):
 	purchased = models.IntegerField()
 	unit_price = models.IntegerField()
 	projected_SP = models.IntegerField()
-	start_date = models.DateTimeField(auto_now_add=False)
-	end_date = models.DateTimeField(auto_now_add=False)
+	start_date = models.DateField(auto_now_add=False)
+	end_date = models.DateField(auto_now_add=False)
 	user = models.ForeignKey(User,on_delete=models.CASCADE, blank=True, null=True)
 
 	def __str__(self):
@@ -36,8 +36,8 @@ class Batch(models.Model):
 class Customers(models.Model):
 	Name = models.CharField(max_length=30)
 	number = models.IntegerField()
-	date = models.DateTimeField(auto_now_add=False)
-	batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
+	date = models.DateField(auto_now_add=False)
+	batch = models.ForeignKey(Batch, on_delete=models.DO_NOTHING)
 
 
 	def __str__(self):
@@ -47,7 +47,7 @@ class Customers(models.Model):
 class Deaths(models.Model):
 	number = models.IntegerField()
 	reason = models.TextField(max_length=300)
-	date = models.DateTimeField(auto_now_add=False)
+	date = models.DateField(auto_now_add=False)
 	batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
 
 	def __str__(self):
@@ -80,7 +80,7 @@ class Expenses(models.Model):
 	amount = models.IntegerField()
 	expense = models.CharField(choices = EXPENSES, max_length=30)
 	details = models.TextField(max_length=300)
-	date = models.DateTimeField(auto_now_add=False)
+	date = models.DateField(auto_now_add=False)
 	batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
 
 
@@ -102,7 +102,7 @@ class Expenses(models.Model):
 class Revenue(models.Model):
 	sell_price = models.IntegerField()
 	number = models.IntegerField()
-	date = models.DateTimeField(auto_now_add=False)
+	date = models.DateField(auto_now_add=False)
 	batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
 	customer = models.ManyToManyField(Customers)
 

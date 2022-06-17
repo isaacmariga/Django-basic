@@ -60,4 +60,4 @@ def new_batch(request):
 	else:
 		form = BatchForm()
 			
-	return render(request, 'new_batch.html', {'form': form})
+	return render(request, 'business/new_batch.html', {'form': form})

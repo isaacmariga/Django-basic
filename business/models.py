@@ -7,7 +7,7 @@ from django.db.models import Avg, Sum
 
 class Batch(models.Model):
 	animal = models.CharField(max_length=30)
-  picture = models.ImageField(upload_to = 'batch/')
+	picture = models.ImageField(upload_to = 'batch/', blank=True, null=True)
 	purchased = models.IntegerField()
 	unit_price = models.IntegerField()
 	projected_SP = models.IntegerField()

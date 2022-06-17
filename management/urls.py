@@ -17,10 +17,15 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import path, include
 from django.contrib import admin
+from django.contrib.auth import views 
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('business.urls'))
+    path('', include('business.urls')),
+    path('accounts/', include('django_registration.backends.one_step.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path(r'logout/', views.LogoutView.as_view( next_page = '/')),
+
 
 ]

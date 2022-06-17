@@ -82,7 +82,7 @@ def new_death(request):
 	else:
 		form = DeathsForm()
 			
-	return render(request, 'business/new_death.html', {'form': form})
+	return render(request, 'business/new_death.html', {'form': form, 'batch':batch})
 
 
 
@@ -107,32 +107,36 @@ def new_customer(request, id):
 
 @login_required(login_url='/accounts/login/')
 def new_expense(request):
+	batch = Batch.get_by_id(id)
 	current_user = request.user			
 	if request.method == 'POST':
 		form = ExpensesForm(request.POST, request.FILES)
 		if form.is_valid():
 			name = form.save(commit=False)
 			name.user = current_user
+			name.batch = batch
 			name.save()
 		return redirect( 'home' )
 	else:
 		form = ExpensesForm()
 			
-	return render(request, 'business/new_expense.html', {'form': form})
+	return render(request, 'business/new_expense.html', {'form': form, 'batch':batch})
 
 
 	
 @login_required(login_url='/accounts/login/')
 def new_revenue(request):
+	batch = Batch.get_by_id(id)
 	current_user = request.user			
 	if request.method == 'POST':
 		form = RevenueForm(request.POST, request.FILES)
 		if form.is_valid():
 			name = form.save(commit=False)
 			name.user = current_user
+			name.batch = batch
 			name.save()
 		return redirect( 'home' )
 	else:
 		form = RevenueForm()
 			
-	return render(request, 'business/new_revenue.html', {'form': form})
+	return render(request, 'business/new_revenue.html', {'form': form, 'batch':batch})

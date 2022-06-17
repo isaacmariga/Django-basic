@@ -42,7 +42,8 @@ DATABASES = {
 # Application definition
 
 
-ACCOUNT_ACTIVATION_DAYS = 7  =(days application will remain active without logging in)
+ACCOUNT_ACTIVATION_DAYS = 7  
+LOGIN_REDIRECT_URL = ('/')
 
 
 INSTALLED_APPS = [

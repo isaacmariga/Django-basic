@@ -1,5 +1,7 @@
 from django.db import models
 from django.db.models import Avg, Sum
+from django.contrib.auth.models import User
+
 
 # Create your models here.
 
@@ -13,6 +15,7 @@ class Batch(models.Model):
 	projected_SP = models.IntegerField()
 	start_date = models.DateTimeField(auto_now_add=False)
 	end_date = models.DateTimeField(auto_now_add=False)
+	user = models.ForeignKey(User,on_delete=models.CASCADE, blank=True, null=True)
 
 	def __str__(self):
 		return str(self.id)

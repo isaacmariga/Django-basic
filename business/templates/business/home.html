@@ -4,6 +4,7 @@
 {{block.super}}
 {% for project in projects%}
 <p>{{project.purchased}}</p>
+<p>{{project.animal}}</p>
 <a href="{% url 'batch' project.id%}">Test</a>
 {% endfor%}
 {% endblock %}

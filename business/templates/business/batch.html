@@ -12,11 +12,21 @@
 <p>Expected Profit{{exp_profit}}</p>
 <p>Gross revenue{{rev}}</p>
 <p>net Profit{{real_profit}}</p>
-<p> batch--{{ batch.id}}</p>
+<p>net Profit{{batch.group}}</p>
 <a href="{%url 'new_death' batch.id%}">death</a>
 <a href="{%url 'new_customer' batch.id%}">customer</a>
 <a href="{%url 'new_revenue' batch.id%}">revenue</a>
 <a href="{%url 'new_expense' batch.id%}">expense</a>
+
+<p>total exp2{{total}}</p>
+
+
+<!-- {% for item in t_p%}
+<a href="{% url 'test' item.batch item.group%}">Test</a>
+<p>test = {{item.group}}</p>
+<p>test = {{item.amount}}</p>
+{% endfor%} -->
+
 
 
 <!-- Charts -->
@@ -53,6 +63,9 @@
     config
   );
 </script>
+
+
+
 
 
 {% endblock %}

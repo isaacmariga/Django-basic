@@ -74,26 +74,49 @@ class Deaths(models.Model):
 					table = int("".join(map(str,table)))
 					return table
 
-EXPENSES =(("Food","Food"),
-("Health","Health"),
-("Utilities","Utilities"),
-("miscellaneous", "miscellaneous")
 
-)
+class ExpenseDetails(models.Model):
+	group = models.CharField( max_length=30)
+	
+	def __str__(self):
+			return self.group
+
+class ExpenseGroup(models.Model):
+		group = models.CharField( max_length=30, null=True, blank=True)
+		details = models.ForeignKey(ExpenseDetails, on_delete=models.DO_NOTHING, null=True, blank=True)
+		batch = models.ForeignKey(Batch, on_delete=models.CASCADE, null=True, blank=True)
+
+	
+		def __str__(self):
+			return self.group
 
 
 
 class Expenses(models.Model):
 	amount = models.IntegerField()
-	expense = models.CharField(choices = EXPENSES, max_length=30)
-	details = models.TextField(max_length=300)
+	group = models.ForeignKey(ExpenseGroup, on_delete=models.DO_NOTHING, null=True, blank=True)
+	details = models.TextField(max_length=300, null=True, blank=True)
 	date = models.DateField(auto_now_add=False)
 	batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
 
 
 	def __str__(self):
-		return str(f"expense-{self.expense} {self.id}")
+		return str(f"expense- {self.id}")
 
+	@classmethod
+	def search(cls, id, group):
+			test =  Expenses.objects.filter(batch__id= id, group__group__contains=group)
+			return test
+
+	@classmethod
+	def total_search(cls, id, group):
+			table =  list(Expenses.objects.filter(batch__id= id, group__group__contains=group).aggregate(Sum('amount')).values())
+			test = all( i == None for i in table)
+			if (test) == True:
+					return 1
+			else:
+					table = int("".join(map(str,table)))
+					return table
 
 	@classmethod
 	def expense_sum(cls, id):
@@ -104,7 +127,17 @@ class Expenses(models.Model):
 			else:
 					table = int("".join(map(str,table)))
 					return table
-					
+
+	@classmethod
+	def expense_sum_per(cls, id):
+			table = list(Expenses.objects.filter(batch_id=id).values('group').annotate(sum=Sum('amount')))
+
+			# table = table[0]
+			# table = table.get('sum')
+			table = len(table)
+
+			return table
+
 
 class Revenue(models.Model):
 	sell_price = models.IntegerField()

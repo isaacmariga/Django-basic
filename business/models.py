@@ -41,7 +41,7 @@ class Batch(models.Model):
 
 	def expected_revenue(id):
 			s_p = list(Batch.objects.filter(id=id).aggregate(Sum('projected_SP')).values())
-			s_p = int("".join(map(str,u_p)))
+			s_p = int("".join(map(str,s_p)))
 			
 			purch = list(Batch.objects.filter(id=id).aggregate(Sum('purchased')).values())
 			purch = int("".join(map(str,purch)))
@@ -129,6 +129,7 @@ class Expenses(models.Model):
 		group_list = []
 		for i in group:
 				group_list.append(i.group)
+				# group_list= ("".join(map(str,group_list)))
 		yield group_list
 
 	@classmethod

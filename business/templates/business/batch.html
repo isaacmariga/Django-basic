@@ -83,9 +83,7 @@
                     label: 'My First dataset',
                     backgroundColor: ['red', 'blue', 'orange'],
                     borderColor: 'rgb(255, 99, 132)',
-                    data: {{ data| safe}},
-      }]
-    };
+                    data: {{ data| safe}},}]};
 
                 const config = {
                   type: 'bar',
@@ -138,42 +136,275 @@
 
 
 
-<!-- Revenue Charts -->
+<!-- Batch Charts -->
 <div>
-  <canvas id="myChart2"></canvas>
-</div>
+  <div>
+    <canvas id="myChart2"></canvas>
+  </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<script>
-  const labels2 = {{ label2| safe}};
+  <script>
+    const labels2 = {{ revenue_labels| safe}};
 
-  const data2 = {
-    labels: labels2,
-    datasets: [{
-      label: 'My First dataset',
-      backgroundColor: ['red', 'blue', 'orange'],
-      borderColor: 'rgb(255, 99, 132)',
-      data: {{ data2| safe}},
+    const data2 = {
+      labels: labels2,
+      datasets: [{
+        label: 'Purchace price to expected revenue',
+        backgroundColor: ['red', 'blue', 'orange'],
+        borderColor: 'rgb(255, 99, 132)',
+        data: {{ revenue_data| safe}},
     }]
   };
 
-  const config2 = {
-    type: 'bar',
-    data: data2,
-    options: {}
+    const config2 = {
+      type: 'bar',
+      data: data2,
+      options: {}
+    };
+  </script>
+
+
+  <script>
+    const myChart2 = new Chart(
+      document.getElementById('myChart2'),
+      config2
+    );
+  </script>
+</div>
+<!-- Item expense graph -->
+<div>
+  <div>
+    <canvas id="item_expense"></canvas>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    const labels3 = {{ expense_item_label| safe}};
+
+    const data3 = {
+      labels: labels3,
+      datasets: [{
+        label: 'Expences by details',
+        backgroundColor: ['red', 'blue', 'orange'],
+        borderColor: 'rgb(255, 99, 132)',
+        data: {{ expense_item_amount| safe}},
+    }]
   };
-</script>
+
+    const config3 = {
+      type: 'bar',
+      data: data3,
+      options: {}
+    };
+  </script>
 
 
-<script>
-  const myChart2 = new Chart(
-    document.getElementById('myChart2'),
-    config2
-  );
-</script>
+  <script>
+    const group_expense = new Chart(
+      document.getElementById('item_expense'),
+      config3
+    );
+  </script>
+</div>
+
+<!-- group expense graph -->
+
+<div>
+  <div>
+    <canvas id="myChart5"></canvas>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    const labels5 = {{ expense_group_label| safe}};
+
+    const data5 = {
+      labels: labels5,
+      datasets: [{
+        label: 'Purchace price to expected revenue',
+        backgroundColor: ['red', 'blue', 'orange'],
+        borderColor: 'rgb(255, 99, 132)',
+        data: {{ expense_group_amount| safe}},
+    }]
+  };
+
+    const config5 = {
+      type: 'bar',
+      data: data5,
+      options: {}
+    };
+  </script>
 
 
+  <script>
+    const myChart5 = new Chart(
+      document.getElementById('myChart5'),
+      config5
+    );
+  </script>
+</div>
+
+
+<!-- death graph -->
+
+<div>
+  <div>
+    <canvas id="myChart6"></canvas>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    const labels6 = {{ death_label| safe}};
+
+    const data6 = {
+      labels: labels6,
+      datasets: [{
+        label: 'Deaths and reason',
+        backgroundColor: ['red', 'blue', 'orange'],
+        borderColor: 'rgb(255, 99, 132)',
+        data: {{ death_amount| safe}},
+    }]
+  };
+
+    const config6 = {
+      type: 'bar',
+      data: data6,
+      options: {}
+    };
+  </script>
+
+
+  <script>
+    const myChart6 = new Chart(
+      document.getElementById('myChart6'),
+      config6
+    );
+  </script>
+</div>
+
+
+<!-- units bought  by customer graph -->
+
+<div>
+  <div>
+    <canvas id="myChart7"></canvas>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    const labels7 = {{ revenue_customer_label| safe}};
+
+    const data7 = {
+      labels: labels7,
+      datasets: [{
+        label: 'Revenue by customer',
+        backgroundColor: ['red', 'blue', 'orange'],
+        borderColor: 'rgb(255, 99, 132)',
+        data: {{ total_by_customer_amount| safe}},
+    }]
+  };
+
+    const config7 = {
+      type: 'bar',
+      data: data7,
+      options: {}
+    };
+  </script>
+
+
+  <script>
+    const myChart7 = new Chart(
+      document.getElementById('myChart7'),
+      config7
+    );
+  </script>
+</div>
+
+
+
+<!-- units bought  by customer graph -->
+
+<div>
+  <div>
+    <canvas id="myChart8"></canvas>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    const labels8 = {{ revenue_customer_label| safe}};
+
+    const data8 = {
+      labels: labels8,
+      datasets: [{
+        label: 'Units bought by customer',
+        backgroundColor: ['red', 'blue', 'orange'],
+        borderColor: 'rgb(255, 99, 132)',
+        data: {{ num_per_customer_amount| safe}},
+    }]
+  };
+
+    const config8 = {
+      type: 'bar',
+      data: data8,
+      options: {}
+    };
+  </script>
+
+
+  <script>
+    const myChart8 = new Chart(
+      document.getElementById('myChart8'),
+      config8
+    );
+  </script>
+</div>
+
+
+
+
+<!-- price bought  by customer graph -->
+
+<div>
+  <div>
+    <canvas id="myChart9"></canvas>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    const labels9 = {{ revenue_customer_label| safe}};
+
+    const data9 = {
+      labels: labels9,
+      datasets: [{
+        label: 'Units bought by customer',
+        backgroundColor: ['red', 'blue', 'orange'],
+        borderColor: 'rgb(255, 99, 132)',
+        data: {{ rev_customer_amount| safe}},
+    }]
+  };
+
+    const config9 = {
+      type: 'bar',
+      data: data9,
+      options: {}
+    };
+  </script>
+
+
+  <script>
+    const myChart9 = new Chart(
+      document.getElementById('myChart9'),
+      config9
+    );
+  </script>
+</div>
 
 
 {% endblock %}

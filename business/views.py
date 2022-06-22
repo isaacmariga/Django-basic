@@ -1,3 +1,4 @@
+import re
 from django.shortcuts import render, redirect
 from .models import Batch, Deaths, ExpenseGroup, Expenses, Revenue, Customers
 from .forms import BatchForm, DeathsForm, ExpensesForm, ExpenseGroupForm, RevenueForm, CustomersForm
@@ -16,34 +17,85 @@ def home(request):
 
 
 def batch(request, id):
+		# Batch queries
 	projects = set(Batch.get_all())
 	batch = Batch.get_by_id(id)
-	purchase_price = Batch.total_cost(id)
+	purchase_price = Batch.purchase_cost(id)
+	expected_revenue = Batch.expected_revenue(id)
 
+# Deaths queries
 	deaths = Deaths.death_by_batch(id) 
 	death_sum =Deaths.death_sum(id)
 
-
+# expences queries
 	expense_sum = Expenses.expense_sum(id)
 	expenses = Expenses.exp_by_batch(id) 
 	expense_by_group = Expenses.sum_by_group_amount(id)
 	expense_by_group_list = Expenses.sum_by_group_list()
 
-
+# revenue queries
 	revenue_sum = Revenue.total_revenue(id)
 	revenue_by_customer_list = Revenue.sum_by_customer_list()
-	revenue_by_customer_amount = Revenue.sum_by_customer_amount()
-	revenue_by_customer_number = Revenue.sum_by_customer_number()
-	revenue_by_customer_total = Revenue.sum_by_customer_total()
+	revenue_by_customer_amount = Revenue.sum_by_customer_amount(id)
+	revenue_by_customer_number = Revenue.sum_by_customer_number(id)
+	revenue_by_customer_total = Revenue.sum_by_customer_total(id)
 
 	customers = Customers.customers_by_batch(id)
 
-
-
-
-
-	exp_profit = purchase_price - expense_sum
+# profit calculation
 	real_profit = revenue_sum - expense_sum
+ 
+
+#  Graph views
+# batch graphs
+	revenue_labels= ["Expected Revenue", "Actual revenue"]
+	revenue_data =[expected_revenue,real_profit ]
+
+# Expenses graphs
+# expenses per item
+	expense_item_label= []
+	expense_item_amount= []
+	for expense in expenses:
+			expense_item_label.append(str(expense.details))
+			expense_item_amount.append(str(expense.amount))
+
+# expenses by group
+	expense_group_amount= []
+
+	for expense in expense_by_group:
+			expense_group_amount.append(expense)
+
+	for label in expense_by_group_list:
+			expense_group_label = label
+
+
+# Deaths by reason
+	death_label= []
+	death_amount= []
+	for death in deaths:
+			death_label.append(str(death.reason))
+
+			death_amount.append(str(death.number))
+
+
+# revenue by customer
+	rev_customer_amount= []
+	num_per_customer_amount= []
+	total_by_customer_amount= []
+
+	for revenue in revenue_by_customer_amount:
+			rev_customer_amount.append(revenue)
+	for number in revenue_by_customer_number:
+			num_per_customer_amount.append(number)
+
+	for total in revenue_by_customer_total:
+			total_by_customer_amount.append(total)
+
+	for label in revenue_by_customer_list:
+			revenue_customer_label = label
+
+
+
 
 	label= []
 	data =[]
@@ -73,7 +125,7 @@ def batch(request, id):
 
 
 	return render(request, 'business/batch.html',
-	{'deaths':deaths, 'id':id, 'death_sum':death_sum, 'purchase_price':purchase_price, 'expense_sum':expense_sum, 'exp_profit':exp_profit,'label':label,'label2':label2, 'data':data, 'data2':data2,'revenue_sum':revenue_sum, 'real_profit':real_profit, 'batch':batch, 'projects':projects, 'expense_by_group':expense_by_group, 'customers':customers,'expenses':expenses, 'expense_by_group_list':expense_by_group_list, 'revenue_by_customer_list':revenue_by_customer_list, 'revenue_by_customer_amount':revenue_by_customer_amount, 'revenue_by_customer_number':revenue_by_customer_number, 'revenue_by_customer_total':revenue_by_customer_total})
+	{'deaths':deaths, 'id':id, 'death_sum':death_sum, 'purchase_price':purchase_price, 'expense_sum':expense_sum, 'label':label,'label2':label2, 'data':data, 'data2':data2,'revenue_sum':revenue_sum, 'real_profit':real_profit, 'batch':batch, 'projects':projects, 'expense_by_group':expense_by_group, 'customers':customers,'expenses':expenses, 'expense_by_group_list':expense_by_group_list, 'revenue_by_customer_list':revenue_by_customer_list, 'revenue_by_customer_amount':revenue_by_customer_amount, 'revenue_by_customer_number':revenue_by_customer_number, 'revenue_by_customer_total':revenue_by_customer_total, 'expected_revenue':expected_revenue, 'revenue_labels':revenue_labels, 'revenue_data':revenue_data, 'expense_item_label':expense_item_label, 'expense_item_amount':expense_item_amount, 'expense_group_label':expense_group_label, 'expense_group_amount':expense_group_amount,'death_label':death_label, 'death_amount':death_amount,'rev_customer_amount':rev_customer_amount,'num_per_customer_amount':num_per_customer_amount, 'total_by_customer_amount':total_by_customer_amount, 'revenue_customer_label':revenue_customer_label})
 
 
 

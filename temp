@@ -1,0 +1,5 @@
+		# test2 = ExpenseGroup.objects.all()
+		# lisp = []
+		# for x in test2:
+		# 		lisp.append(x.group)
+		# 		print(lisp)

@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import Avg, Sum
+from django.db.models import Avg, Sum, Count
 from django.contrib.auth.models import User
 
 
@@ -49,6 +49,11 @@ class Customers(models.Model):
 	def __str__(self):
 		return str(self.id)
 
+	@classmethod
+	def customers_by_batch(cls, id):
+		result = Customers.objects.filter(batch = id)
+		return result
+
 		
 class Deaths(models.Model):
 	number = models.IntegerField()
@@ -60,7 +65,7 @@ class Deaths(models.Model):
 		return str(self.id)
 
 	@classmethod
-	def ind_by_batch(cls, id):
+	def death_by_batch(cls, id):
 		result = Deaths.objects.filter(batch = id)
 		return result
 
@@ -103,20 +108,43 @@ class Expenses(models.Model):
 	def __str__(self):
 		return str(f"expense- {self.id}")
 
+
+	@classmethod
+	def exp_by_batch(cls, id):
+		result = Expenses.objects.filter(batch = id)
+		return result
+
 	@classmethod
 	def search(cls, id, group):
 			test =  Expenses.objects.filter(batch__id= id, group__group__contains=group)
 			return test
 
+
 	@classmethod
-	def total_search(cls, id, group):
-			table =  list(Expenses.objects.filter(batch__id= id, group__group__contains=group).aggregate(Sum('amount')).values())
+	def sum_by_group_list(cls, id):
+		group = ExpenseGroup.objects.all()
+		group_list = []
+		for i in group:
+				group_list.append(i.group)
+		yield group_list
+
+	@classmethod
+	def sum_by__group_amount(cls, id):
+		group = ExpenseGroup.objects.all()
+		group_list = []
+		for i in group:
+				group_list.append(i.group)
+		lists = group_list
+		for i in lists:
+
+			table =  list(Expenses.objects.filter(batch__id= id, group__group__contains=i).aggregate(Sum('amount')).values())
 			test = all( i == None for i in table)
 			if (test) == True:
 					return 1
 			else:
 					table = int("".join(map(str,table)))
-					return table
+			yield table
+
 
 	@classmethod
 	def expense_sum(cls, id):
@@ -137,6 +165,8 @@ class Expenses(models.Model):
 			table = len(table)
 
 			return table
+
+
 
 
 class Revenue(models.Model):

@@ -11,52 +11,64 @@ from django.contrib.auth.decorators import login_required
 
 def home(request):
 	projects = Batch.get_all() 
+	test = Expenses.group_tot()
 	
-	return render(request, 'business/home.html',{'projects':projects})
+	return render(request, 'business/home.html',{'projects':projects, 'test':test})
 
-def test(request, id , group):
-	projects = Batch.get_all() 
-
-	t_s = Expenses.total_search(id, group)
-	t_p = Expenses.search(id, group)
-	
-	return render(request, 'business/test.html',{'t_p':t_p , 'projects':projects, 't_s':t_s})
 
 def batch(request, id):
-	deaths = Deaths.ind_by_batch(id) 
-	d_sum =Deaths.death_sum(id)
-	b_p = Batch.total_cost(id)
-	t_e = Expenses.expense_sum(id)
-	rev = Revenue.total_revenue(id)
-	batch = Batch.get_by_id(id)
 	projects = set(Batch.get_all())
-	# t_s = Expenses.total_search(id, group)
- 
-	total = Expenses.expense_sum_per(id)
-	t_e = Expenses.expense_sum(id)
-	t_p = Expenses.objects.all()
-	# a_e = Expenses.objects.filter(id=id).filter(group=group)
+	batch = Batch.get_by_id(id)
+	purchase_price = Batch.total_cost(id)
+
+	deaths = Deaths.death_by_batch(id) 
+	death_sum =Deaths.death_sum(id)
 
 
-	exp_profit = b_p - t_e
-	real_profit = rev - t_e
+	expense_sum = Expenses.expense_sum(id)
+	expenses = Expenses.exp_by_batch(id) 
+	expense_by_group = Expenses.sum_by_group_list(id)
+
+
+	revenue_sum = Revenue.total_revenue(id)
+	customers = Customers.customers_by_batch(id)
+
+
+
+
+
+	exp_profit = purchase_price - expense_sum
+	real_profit = revenue_sum - expense_sum
 
 	label= []
 	data =[]
+
+	label2= []
+	data2 =[]
+
+	for x in expense_by_group:
+			data.append(x)
+
 
 	queryset = Expenses.objects.order_by('-amount').filter(batch_id = id)
 	# queryset2 = ExpenseGroup.objects.filter(batch_id = id)
 
 
 	for expense in queryset:
-		data.append(expense.amount)
-		label.append(expense.details)
+		label.append(str(expense.group))
+
+	queryset = Deaths.objects.order_by('-date').filter(batch_id = id)
+
+
+	for expense in queryset:
+		data2.append(expense.number)
+		label2.append(str(expense.reason))
 	# for expense in queryset2:
 		# label.append(expense.group)
 
 
 	return render(request, 'business/batch.html',
-	{'deaths':deaths, 'id':id, 'd_sum':d_sum, 'b_p':b_p, 't_e':t_e, 'exp_profit':exp_profit,'label':label, 'data':data, 'rev':rev, 'real_profit':real_profit, 'batch':batch, 't_p':t_p ,'projects':projects, 'total':total})
+	{'deaths':deaths, 'id':id, 'death_sum':death_sum, 'purchase_price':purchase_price, 'expense_sum':expense_sum, 'exp_profit':exp_profit,'label':label,'label2':label2, 'data':data, 'data2':data2,'revenue_sum':revenue_sum, 'real_profit':real_profit, 'batch':batch, 't_p':t_p ,'projects':projects, 'expense_by_group':expense_by_group, 'customers':customers,'expenses':expenses })
 
 
 

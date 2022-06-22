@@ -30,13 +30,22 @@ class Batch(models.Model):
 		result = cls.objects.get(id=id)
 		return result
 	
-	def total_cost(id):
+	def purchase_cost(id):
 			u_p = list(Batch.objects.filter(id=id).aggregate(Sum('unit_price')).values())
 			u_p = int("".join(map(str,u_p)))
 			
 			purch = list(Batch.objects.filter(id=id).aggregate(Sum('purchased')).values())
 			purch = int("".join(map(str,purch)))
 			cost = u_p * purch
+			return cost
+
+	def expected_revenue(id):
+			s_p = list(Batch.objects.filter(id=id).aggregate(Sum('projected_SP')).values())
+			s_p = int("".join(map(str,u_p)))
+			
+			purch = list(Batch.objects.filter(id=id).aggregate(Sum('purchased')).values())
+			purch = int("".join(map(str,purch)))
+			cost = s_p * purch
 			return cost
 
 class Customers(models.Model):

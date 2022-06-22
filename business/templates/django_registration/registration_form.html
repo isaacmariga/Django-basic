@@ -1,17 +1,20 @@
-{% if form.errors %}
-<p> Registration Failed </p>
+{%extends 'business/base.html'%}{% load django_bootstrap5%} {% block content %}
+{{block.super}} {% if form.errors %}
+<p>Registration Failed</p>
 {% endif %}
 
--The form
+<div class="form-rl">
+  <form action="/accounts/register/" method="post">
+    {% csrf_token %} {% bootstrap_form form%}
+     <div class="border-top pt-3">
+      <small class="text-muted">Already have an Account ? <a href="{% url 'login' %}">login</a></small>
+    </div>
 
-<form action="/accounts/register/" method="post">
-  {% csrf_token %}
-  {% bootstrap_form form%}
+    <div class="form-group">
+      <input type="submit" class="btn btn-primary btn-sm" value="Sign Up" />
+    </div>
 
-  <div class="form-group">
-    <input type="submit" class="btn btn-primary btn-sm" value="Sign Up">
-  </div>
-
-  <input type="hidden" name="next" value="{{next}}">
-
-</form>
+    <input type="hidden" name="next" value="{{next}}" />
+  </form>
+</div>
+{% endblock%}

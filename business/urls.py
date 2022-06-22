@@ -14,7 +14,7 @@ urlpatterns = [
   path('new_revenue/<id>', views.new_revenue,name = 'new_revenue'),
   path('new_death/<id>', views.new_death,name = 'new_death'),
   path('business/<id>', views.batch,name = 'batch'),
-  path('business/<id>/<group>', views.test,name = 'test'),
+  # path('business/<id>/<group>', views.test,name = 'test'),
 ]
 
 

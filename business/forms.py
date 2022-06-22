@@ -1,5 +1,5 @@
 from django import forms
-from .models import Batch, Deaths, Expenses, Revenue, Customers, ExpenseGroup, ExpenseDetails
+from .models import Batch, Deaths, Expenses, Revenue, Customers, ExpenseGroup
 
 class BatchForm(forms.ModelForm):
   class Meta:
@@ -20,10 +20,6 @@ class ExpensesForm(forms.ModelForm):
 class ExpenseGroupForm(forms.ModelForm):
   class Meta:
     model=ExpenseGroup
-    exclude=['batch']
-class ExpenseDetailsForm(forms.ModelForm):
-  class Meta:
-    model=ExpenseDetails
     exclude=['batch']
 
 class RevenueForm(forms.ModelForm):

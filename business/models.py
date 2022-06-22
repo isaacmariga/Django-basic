@@ -40,14 +40,14 @@ class Batch(models.Model):
 			return cost
 
 class Customers(models.Model):
-	Name = models.CharField(max_length=30)
+	name = models.CharField(max_length=30)
 	number = models.IntegerField()
 	date = models.DateField(auto_now_add=False)
 	batch = models.ForeignKey(Batch, on_delete=models.DO_NOTHING)
 
 
 	def __str__(self):
-		return str(self.id)
+		return self.name
 
 	@classmethod
 	def customers_by_batch(cls, id):
@@ -80,16 +80,10 @@ class Deaths(models.Model):
 					return table
 
 
-class ExpenseDetails(models.Model):
-	group = models.CharField( max_length=30)
-	
-	def __str__(self):
-			return self.group
 
 class ExpenseGroup(models.Model):
-		group = models.CharField( max_length=30, null=True, blank=True)
-		details = models.ForeignKey(ExpenseDetails, on_delete=models.DO_NOTHING, null=True, blank=True)
-		batch = models.ForeignKey(Batch, on_delete=models.CASCADE, null=True, blank=True)
+		group = models.CharField( max_length=30)
+		batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
 
 	
 		def __str__(self):
@@ -99,8 +93,8 @@ class ExpenseGroup(models.Model):
 
 class Expenses(models.Model):
 	amount = models.IntegerField()
-	group = models.ForeignKey(ExpenseGroup, on_delete=models.DO_NOTHING, null=True, blank=True)
-	details = models.TextField(max_length=300, null=True, blank=True)
+	group = models.ForeignKey(ExpenseGroup, on_delete=models.DO_NOTHING)
+	details = models.TextField(max_length=300)
 	date = models.DateField(auto_now_add=False)
 	batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
 
@@ -121,7 +115,7 @@ class Expenses(models.Model):
 
 
 	@classmethod
-	def sum_by_group_list(cls, id):
+	def sum_by_group_list(cls):
 		group = ExpenseGroup.objects.all()
 		group_list = []
 		for i in group:
@@ -129,7 +123,7 @@ class Expenses(models.Model):
 		yield group_list
 
 	@classmethod
-	def sum_by__group_amount(cls, id):
+	def sum_by_group_amount(cls, id):
 		group = ExpenseGroup.objects.all()
 		group_list = []
 		for i in group:
@@ -174,7 +168,7 @@ class Revenue(models.Model):
 	number = models.IntegerField()
 	date = models.DateField(auto_now_add=False)
 	batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
-	customer = models.ManyToManyField(Customers)
+	customer = models.ForeignKey(Customers, on_delete=models.CASCADE)
 
 	def __str__(self):
 		return str(self.id)
@@ -198,3 +192,72 @@ class Revenue(models.Model):
 
 			return total					
 	
+
+	@classmethod
+	def sum_by_customer_list(cls):
+		group = Customers.objects.all()
+		group_list = []
+		for i in group:
+				group_list.append(i.name)
+		yield group_list
+
+	@classmethod
+	def sum_by_customer_amount(cls, id):
+		group = Customers.objects.all()
+		group_list = []
+		for i in group:
+				group_list.append(i.name)
+		lists = group_list
+		for i in lists:
+
+			table =  list(Revenue.objects.filter(batch__id= id, customer__name__contains=i).aggregate(Sum('number')).values())
+			test = all( i == None for i in table)
+			if (test) == True:
+					return 1
+			else:
+					table = int("".join(map(str,table)))
+			yield table
+
+	@classmethod
+	def sum_by_customer_number(cls, id):
+		group = Customers.objects.all()
+		group_list = []
+		for i in group:
+				group_list.append(i.name)
+		lists = group_list
+		for i in lists:
+
+			table =  list(Revenue.objects.filter(batch__id= id, customer__name__contains=i).aggregate(Sum('sell_price')).values())
+			test = all( i == None for i in table)
+			if (test) == True:
+					return 1
+			else:
+					table = int("".join(map(str,table)))
+			yield table
+
+	@classmethod
+	def sum_by_customer_total(cls, id):
+		group = Customers.objects.all()
+		group_list = []
+		for i in group:
+				group_list.append(i.name)
+		lists = group_list
+		for i in lists:
+
+			s_price = list(Revenue.objects.filter(batch__id=id, customer__name__contains=i).aggregate(Sum('sell_price')).values())
+			test = all( i == None for i in s_price)
+			if (test) == True:
+					return 1
+			else:
+					s_price = int("".join(map(str,s_price)))
+			num = list(Revenue.objects.filter(batch__id=id, customer__name__contains=i).aggregate(Sum('number')).values())
+			test = all( i == None for i in num)
+			if (test) == True:
+					return 1
+			else:
+					num = int("".join(map(str,num)))
+
+			total = s_price * num
+
+			yield total		
+

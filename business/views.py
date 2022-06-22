@@ -11,9 +11,8 @@ from django.contrib.auth.decorators import login_required
 
 def home(request):
 	projects = Batch.get_all() 
-	test = Expenses.group_tot()
 	
-	return render(request, 'business/home.html',{'projects':projects, 'test':test})
+	return render(request, 'business/home.html',{'projects':projects})
 
 
 def batch(request, id):
@@ -27,10 +26,16 @@ def batch(request, id):
 
 	expense_sum = Expenses.expense_sum(id)
 	expenses = Expenses.exp_by_batch(id) 
-	expense_by_group = Expenses.sum_by_group_list(id)
+	expense_by_group = Expenses.sum_by_group_amount(id)
+	expense_by_group_list = Expenses.sum_by_group_list()
 
 
 	revenue_sum = Revenue.total_revenue(id)
+	revenue_by_customer_list = Revenue.sum_by_customer_list()
+	revenue_by_customer_amount = Revenue.sum_by_customer_amount()
+	revenue_by_customer_number = Revenue.sum_by_customer_number()
+	revenue_by_customer_total = Revenue.sum_by_customer_total()
+
 	customers = Customers.customers_by_batch(id)
 
 
@@ -68,7 +73,7 @@ def batch(request, id):
 
 
 	return render(request, 'business/batch.html',
-	{'deaths':deaths, 'id':id, 'death_sum':death_sum, 'purchase_price':purchase_price, 'expense_sum':expense_sum, 'exp_profit':exp_profit,'label':label,'label2':label2, 'data':data, 'data2':data2,'revenue_sum':revenue_sum, 'real_profit':real_profit, 'batch':batch, 't_p':t_p ,'projects':projects, 'expense_by_group':expense_by_group, 'customers':customers,'expenses':expenses })
+	{'deaths':deaths, 'id':id, 'death_sum':death_sum, 'purchase_price':purchase_price, 'expense_sum':expense_sum, 'exp_profit':exp_profit,'label':label,'label2':label2, 'data':data, 'data2':data2,'revenue_sum':revenue_sum, 'real_profit':real_profit, 'batch':batch, 'projects':projects, 'expense_by_group':expense_by_group, 'customers':customers,'expenses':expenses, 'expense_by_group_list':expense_by_group_list, 'revenue_by_customer_list':revenue_by_customer_list, 'revenue_by_customer_amount':revenue_by_customer_amount, 'revenue_by_customer_number':revenue_by_customer_number, 'revenue_by_customer_total':revenue_by_customer_total})
 
 
 

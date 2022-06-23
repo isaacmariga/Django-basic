@@ -1,5 +1,5 @@
 from django import forms
-from .models import Batch, Deaths, Expenses, Revenue, Customers
+from .models import Batch, Deaths, Expenses, Revenue, Customers,UserProfile  
 # from bootstrap_datepicker_plus.widgets import DatePickerInput
 
 class BatchForm(forms.ModelForm):
@@ -31,3 +31,10 @@ class CustomersForm(forms.ModelForm):
   class Meta:
     model=Customers
     exclude=['batch']
+
+
+class UserForm(forms.ModelForm):
+  class Meta:
+    model = UserProfile    	
+    fields=('name', 'email','bio','picture')
+			

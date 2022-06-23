@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
-from .models import Batch, Deaths, Expenses, Revenue, Customers
-from .forms import BatchForm, DeathsForm, ExpensesForm, RevenueForm, CustomersForm
+from .models import Batch, Deaths, Expenses, Revenue, Customers,UserProfile
+from .forms import BatchForm, DeathsForm, ExpensesForm, RevenueForm, CustomersForm,UserForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 
 
@@ -132,3 +133,34 @@ def new_revenue(request):
 		form = RevenueForm()
 			
 	return render(request, 'business/new_revenue.html', {'form': form})
+
+def profile(request,editor):
+    profile = UserProfile.get_by_profile(editor)
+    ctx={
+		"profile": profile,
+	}
+
+    return render(request, 'profile/profile.html',ctx)
+
+
+def new_profile(request):
+	
+
+	if request.method == 'POST':
+		form = UserForm(request.POST, current_user, request.FILES)
+
+		if form.is_valid():
+			form.save()
+
+		return redirect('profile')
+
+
+	else:
+		form = UserForm()
+
+	context = {'form': form}
+
+	return render(request, 'profile/new_profile.html',context)
+
+
+

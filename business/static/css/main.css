@@ -1,5 +1,6 @@
 body{
     background-color: black;
+    color: #fff;
     
 }
 
@@ -14,4 +15,8 @@ body{
     font-weight: bold;
     color: #fff;
     text-shadow: 2px 2px 8px #bbf321;
+}
+
+img{
+    width: 80px;
 }

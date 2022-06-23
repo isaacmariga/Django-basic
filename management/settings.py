@@ -57,7 +57,7 @@ INSTALLED_APPS = [
     #installed
     'business.apps.BusinessConfig',
     'django_bootstrap5',
-    'bootstrap_datepicker_plus',
+    
 
 ]
 

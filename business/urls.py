@@ -14,6 +14,8 @@ urlpatterns = [
   path('new_revenue', views.new_revenue,name = 'new_revenue'),
   path('new_death', views.new_death,name = 'new_death'),
   path('business/<id>', views.batch,name = 'batch'),
+  path('about/about', views.about,name = 'about'),
+  path('landing/landing', views.landing,name = 'landing'),
 ]
 
 

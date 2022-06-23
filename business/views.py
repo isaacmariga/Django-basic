@@ -7,12 +7,23 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
+def about(request):
+  
+  return render(request, 'about/about.html', )
+
+def landing(request):
+  
+  return render(request, 'landing/landing.html', )
+
+
 
 
 def home(request):
 	projects = Batch.get_all() 
 
 	return render(request, 'business/home.html',{'projects':projects})
+
+
 
 def batch(request, id):
 	deaths = Deaths.ind_by_batch(id) 

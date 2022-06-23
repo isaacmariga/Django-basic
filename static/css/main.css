@@ -23,3 +23,7 @@ body{
 .btn:hover {
   color: #050801;
 }
+
+h1,h2,h3{
+  font-family: 'Playfair Display', serif;
+}

@@ -1,7 +1,7 @@
 import re
 from django.shortcuts import render, redirect
 from .models import Batch, Deaths, Expenses, Revenue, Customers,UserProfile
-from .forms import BatchForm, DeathsForm, ExpensesForm, RevenueForm, CustomersForm,UserForm
+from .forms import BatchForm, DeathsForm, ExpensesForm, RevenueForm, CustomersForm,UserForm, ExpenseGroupForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
@@ -60,9 +60,11 @@ def batch(request, id):
 # batch graphs
 	revenue_labels= ["Expected Revenue", "Actual revenue"]
 	revenue_data =[expected_revenue,real_profit ]
+	revenue_diff = (expected_revenue -real_profit)
 #Revenue to expenses
 	expenses_to_revenue_label= ["Total Revenue","Total Expenses", "Net Revenue"]
 	expenses_to_revenue_data= [revenue_sum,expense_sum, real_profit]
+
 #loss to death
 	loss_by_death = (death_sum * avg_selling_price)
 	revenue_without_death = (revenue_sum + loss_by_death) 
@@ -113,37 +115,8 @@ def batch(request, id):
 			revenue_customer_label = label
 
 
-
-
-	label= []
-	data =[]
-
-	label2= []
-	data2 =[]
-
-	for x in expense_by_group:
-			data.append(x)
-
-
-	queryset = Expenses.objects.order_by('-amount').filter(batch_id = id)
-	# queryset2 = ExpenseGroup.objects.filter(batch_id = id)
-
-
-	for expense in queryset:
-		label.append(str(expense.group))
-
-	queryset = Deaths.objects.order_by('-date').filter(batch_id = id)
-
-
-	for expense in queryset:
-		data2.append(expense.number)
-		label2.append(str(expense.reason))
-	# for expense in queryset2:
-		# label.append(expense.group)
-
-
 	return render(request, 'business/batch.html',
-	{'deaths':deaths, 'id':id, 'death_sum':death_sum, 'purchase_price':purchase_price, 'expense_sum':expense_sum, 'label':label,'label2':label2, 'data':data, 'data2':data2,'revenue_sum':revenue_sum, 'real_profit':real_profit, 'batch':batch, 'projects':projects, 'expense_by_group':expense_by_group, 'customers':customers,'expenses':expenses, 'expense_by_group_list':expense_by_group_list, 'revenue_by_customer_list':revenue_by_customer_list, 'revenue_by_customer_amount':revenue_by_customer_amount, 'revenue_by_customer_number':revenue_by_customer_number, 'revenue_by_customer_total':revenue_by_customer_total, 'expected_revenue':expected_revenue, 'revenue_labels':revenue_labels, 'revenue_data':revenue_data, 'expense_item_label':expense_item_label, 'expense_item_amount':expense_item_amount, 'expense_group_label':expense_group_label, 'expense_group_amount':expense_group_amount,'death_label':death_label, 'death_amount':death_amount,'rev_customer_amount':rev_customer_amount,'num_per_customer_amount':num_per_customer_amount, 'total_by_customer_amount':total_by_customer_amount, 'revenue_customer_label':revenue_customer_label, 'expenses_to_revenue_label':expenses_to_revenue_label, 'expenses_to_revenue_data':expenses_to_revenue_data, 'avg_selling_price':avg_selling_price, 'loss_to_death_label':loss_to_death_label, 'loss_to_death_data':loss_to_death_data})
+	{'deaths':deaths, 'id':id, 'death_sum':death_sum, 'purchase_price':purchase_price, 'expense_sum':expense_sum, 'label':label,'revenue_sum':revenue_sum, 'real_profit':real_profit, 'batch':batch, 'projects':projects, 'expense_by_group':expense_by_group, 'customers':customers,'expenses':expenses, 'expense_by_group_list':expense_by_group_list, 'revenue_by_customer_list':revenue_by_customer_list, 'revenue_by_customer_amount':revenue_by_customer_amount, 'revenue_by_customer_number':revenue_by_customer_number, 'revenue_by_customer_total':revenue_by_customer_total, 'expected_revenue':expected_revenue, 'revenue_labels':revenue_labels, 'revenue_data':revenue_data, 'expense_item_label':expense_item_label, 'expense_item_amount':expense_item_amount, 'expense_group_label':expense_group_label, 'expense_group_amount':expense_group_amount,'death_label':death_label, 'death_amount':death_amount,'rev_customer_amount':rev_customer_amount,'num_per_customer_amount':num_per_customer_amount, 'total_by_customer_amount':total_by_customer_amount, 'revenue_customer_label':revenue_customer_label, 'expenses_to_revenue_label':expenses_to_revenue_label, 'expenses_to_revenue_data':expenses_to_revenue_data, 'avg_selling_price':avg_selling_price, 'loss_to_death_label':loss_to_death_label, 'loss_to_death_data':loss_to_death_data, 'revenue_diff':revenue_diff})
 
 
 
@@ -241,7 +214,7 @@ def new_revenue(request, id):
 	else:
 		form = RevenueForm()
 			
-	return render(request, 'business/new_revenue.html', {'form': form})
+	return render(request, 'business/new_revenue.html', {'form': form, 'batch':batch})
 
 def profile(request,editor):
     profile = UserProfile.get_by_profile(editor)

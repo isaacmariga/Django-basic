@@ -1,20 +1,34 @@
+<<<<<<< HEAD
  {%extends 'registration/base.html'%}{% load django_bootstrap5%}
 
 {% block content %}
 {{block.super}}
 {% if form.errors %}
 <p> Incorrect Password or Username </p>
+=======
+{%extends 'business/base.html'%}{% load django_bootstrap5%} {% block content %}
+{{block.super}} {% if form.errors %}
+<p>Incorrect Password or Username</p>
+>>>>>>> ft-main
 {% endif %}
 
+<div class="form-rl">
+  <form action="/accounts/login/" method="post">
+  {% csrf_token %} {% bootstrap_form form%}
 
-<form action="/accounts/login/" method="post">
-  {% csrf_token %}
-  {% bootstrap_form form%}
-
+  <div class="border-top pt-3">
+      <small class="text-muted">Need of an Account ? <a href="">register</a></small>
+    </div>
   <div class="form-group">
-    <input type="submit" class="btn btn-primary btn-sm" value="Sign Up">
+    <input type="submit" class="btn btn-primary btn-sm" value="Sign In" />
   </div>
+  <input type="hidden" name="next" value="{{next}}" />
+</form>
+</div>
 
+<<<<<<< HEAD
   <input type="hidden" name="next" value="{{next}}">
 </form>
+=======
+>>>>>>> ft-main
 {% endblock%}

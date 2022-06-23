@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import Avg, Sum, Count
+from django.db.models import Avg, Sum, Count, Max
 from django.contrib.auth.models import User
 
 
@@ -184,8 +184,20 @@ class Revenue(models.Model):
 		return str(self.id)
 
 	@classmethod
+	def avg_selling_price(cls, id):
+			table = list(Revenue.objects.filter(batch_id=id).aggregate(Avg('sell_price')).values())
+			test = all( i == None for i in table)
+			if (test) == True:
+					return 1
+			else:
+					table = float("".join(map(str,table)))
+
+					return table
+
+
+	@classmethod
 	def total_revenue(cls, id):
-			s_price = list(Revenue.objects.filter(batch_id=id).aggregate(Sum('sell_price')).values())
+			s_price = list(Revenue.objects.filter(batch_id=id).aggregate(Sum('sell_price')).values())	
 			test = all( i == None for i in s_price)
 			if (test) == True:
 					return 1

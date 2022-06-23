@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models import Avg, Sum, Count, Max
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
 
 
 # Create your models here.
@@ -9,7 +10,7 @@ from django.contrib.auth.models import User
 
 class Batch(models.Model):
 	farm = models.CharField(max_length=30)
-	picture = models.ImageField(upload_to = 'batch/')
+	picture = CloudinaryField('image')
 	purchased = models.IntegerField()
 	unit_price = models.IntegerField()
 	projected_SP = models.IntegerField()
@@ -287,7 +288,7 @@ class UserProfile(models.Model):
 	name = models.CharField(max_length=255)
 	email = models.EmailField(max_length=255)
 	bio = models.TextField()
-	picture = models.ImageField(max_length=255, blank=True)
+	picture = CloudinaryField('image')
 	editor = models.ForeignKey(User, on_delete=models.CASCADE)
 
 	def __str__(self):

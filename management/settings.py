@@ -72,7 +72,8 @@ INSTALLED_APPS = [
     #installed
     'business.apps.BusinessConfig',
     'django_bootstrap5',
-    # 'bootstrap_datepicker_plus',
+    'cloudinary',
+
 
 ]
 
@@ -169,3 +170,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 django_heroku.settings(locals())
+
+cloudinary.config( 
+  cloud_name = "dtj7bnapz", 
+  api_key = "955543347862628", 
+  api_secret = "fDcoDRd_45Ta9KTrg-KBQsqU9uM" 
+)

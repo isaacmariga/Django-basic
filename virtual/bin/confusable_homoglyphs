@@ -1,4 +1,6 @@
-#!/home/moringa/Desktop/Farm-hand/virtual/bin/python3
+#!/bin/sh
+'''exec' "/home/mariga/Documents/Code-stuff/Core/Django/Group Project/management/virtual/bin/python" "$0" "$@"
+' '''
 # -*- coding: utf-8 -*-
 import re
 import sys

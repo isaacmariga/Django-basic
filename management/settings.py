@@ -23,11 +23,25 @@ import cloudinary.api
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-MODE=config("MODE", default="dev")
+MODE=config('MODE', default='prod')
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = True
 # development
-DATABASES = {
+if config('MODE')=='prod':
+   DATABASES = {
+       'default': {
+           'ENGINE': 'django.db.backends.postgresql_psycopg2',
+           'NAME': config('DB_NAME'),
+           'USER': config('DB_USER'),
+           'PASSWORD': config('DB_PASSWORD'),
+           'HOST': config('DB_HOST'),
+           'PORT': '',
+       }
+       
+   }
+# production
+else:
+ DATABASES = {
      'default': {
          'ENGINE': 'django.db.backends.postgresql',
          'NAME': 'business',
@@ -35,7 +49,6 @@ DATABASES = {
         'PASSWORD':'password',
      }
  }
-
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 

@@ -13,7 +13,7 @@ class Batch(models.Model):
 	purchased = models.IntegerField()
 	unit_price = models.IntegerField()
 	projected_SP = models.IntegerField()
-	start_date = models.DateField(auto_now_add=False)
+	start_date = models.DateField(auto_now_add=True)
 	end_date = models.DateField(auto_now_add=False)
 	user = models.ForeignKey(User,on_delete=models.CASCADE)
 
@@ -51,7 +51,7 @@ class Batch(models.Model):
 class Customers(models.Model):
 	name = models.CharField(max_length=30)
 	number = models.IntegerField()
-	date = models.DateField(auto_now_add=False)
+	date = models.DateField(auto_now_add=True)
 	batch = models.ForeignKey(Batch, on_delete=models.DO_NOTHING)
 
 
@@ -67,7 +67,7 @@ class Customers(models.Model):
 class Deaths(models.Model):
 	number = models.IntegerField()
 	reason = models.TextField(max_length=300)
-	date = models.DateField(auto_now_add=False)
+	date = models.DateField(auto_now_add=True)
 	batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
 
 	def __str__(self):
@@ -104,7 +104,7 @@ class Expenses(models.Model):
 	amount = models.IntegerField()
 	group = models.ForeignKey(ExpenseGroup, on_delete=models.DO_NOTHING)
 	details = models.TextField(max_length=300)
-	date = models.DateField(auto_now_add=False)
+	date = models.DateField(auto_now_add=True)
 	batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
 
 
@@ -176,7 +176,7 @@ class Expenses(models.Model):
 class Revenue(models.Model):
 	sell_price = models.IntegerField()
 	number = models.IntegerField()
-	date = models.DateField(auto_now_add=False)
+	date = models.DateField(auto_now_add=True)
 	batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
 	customer = models.ForeignKey(Customers, on_delete=models.CASCADE)
 
@@ -285,10 +285,10 @@ class Revenue(models.Model):
 
 class UserProfile(models.Model):
 	name = models.CharField(max_length=255)
-	email = models.EmailField(max_length=255, blank=True, null=True)
+	email = models.EmailField(max_length=255)
 	bio = models.TextField()
 	picture = models.ImageField(max_length=255, blank=True)
-	editor = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+	editor = models.ForeignKey(User, on_delete=models.CASCADE)
 
 	def __str__(self):
 		return str(self.id)

@@ -68,8 +68,10 @@ def batch(request, id):
 #loss to death
 	loss_by_death = (death_sum * avg_selling_price)
 	revenue_without_death = (revenue_sum + loss_by_death) 
-	loss_to_death_label= ["Gross Revenue","loss by death","Actual revenue"]
+	loss_to_death_label= ["Possible Revenue","loss by death","Actual revenue"]
 	loss_to_death_data= [revenue_without_death,loss_by_death,revenue_sum]
+	loss_to_death_labelv2= ["Possible Revenue","Actual revenue","loss by death"]
+	loss_to_death_datav2= [revenue_without_death,revenue_sum,loss_by_death]
 
 # Expenses graphs
 # expenses per item
@@ -116,7 +118,7 @@ def batch(request, id):
 
 
 	return render(request, 'business/batch.html',
-	{'deaths':deaths, 'id':id, 'death_sum':death_sum, 'purchase_price':purchase_price, 'expense_sum':expense_sum, 'label':label,'revenue_sum':revenue_sum, 'real_profit':real_profit, 'batch':batch, 'projects':projects, 'expense_by_group':expense_by_group, 'customers':customers,'expenses':expenses, 'expense_by_group_list':expense_by_group_list, 'revenue_by_customer_list':revenue_by_customer_list, 'revenue_by_customer_amount':revenue_by_customer_amount, 'revenue_by_customer_number':revenue_by_customer_number, 'revenue_by_customer_total':revenue_by_customer_total, 'expected_revenue':expected_revenue, 'revenue_labels':revenue_labels, 'revenue_data':revenue_data, 'expense_item_label':expense_item_label, 'expense_item_amount':expense_item_amount, 'expense_group_label':expense_group_label, 'expense_group_amount':expense_group_amount,'death_label':death_label, 'death_amount':death_amount,'rev_customer_amount':rev_customer_amount,'num_per_customer_amount':num_per_customer_amount, 'total_by_customer_amount':total_by_customer_amount, 'revenue_customer_label':revenue_customer_label, 'expenses_to_revenue_label':expenses_to_revenue_label, 'expenses_to_revenue_data':expenses_to_revenue_data, 'avg_selling_price':avg_selling_price, 'loss_to_death_label':loss_to_death_label, 'loss_to_death_data':loss_to_death_data, 'revenue_diff':revenue_diff})
+	{'deaths':deaths, 'id':id, 'death_sum':death_sum, 'purchase_price':purchase_price, 'expense_sum':expense_sum, 'label':label,'revenue_sum':revenue_sum, 'real_profit':real_profit, 'batch':batch, 'projects':projects, 'expense_by_group':expense_by_group, 'customers':customers,'expenses':expenses, 'expense_by_group_list':expense_by_group_list, 'revenue_by_customer_list':revenue_by_customer_list, 'revenue_by_customer_amount':revenue_by_customer_amount, 'revenue_by_customer_number':revenue_by_customer_number, 'revenue_by_customer_total':revenue_by_customer_total, 'expected_revenue':expected_revenue, 'revenue_labels':revenue_labels, 'revenue_data':revenue_data, 'expense_item_label':expense_item_label, 'expense_item_amount':expense_item_amount, 'expense_group_label':expense_group_label, 'expense_group_amount':expense_group_amount,'death_label':death_label, 'death_amount':death_amount,'rev_customer_amount':rev_customer_amount,'num_per_customer_amount':num_per_customer_amount, 'total_by_customer_amount':total_by_customer_amount, 'revenue_customer_label':revenue_customer_label, 'expenses_to_revenue_label':expenses_to_revenue_label, 'expenses_to_revenue_data':expenses_to_revenue_data, 'avg_selling_price':avg_selling_price, 'loss_to_death_label':loss_to_death_label, 'loss_to_death_data':loss_to_death_data,'loss_to_death_labelv2':loss_to_death_labelv2,'loss_to_death_datav2':loss_to_death_datav2, 'revenue_diff':revenue_diff})
 
 
 
@@ -216,33 +218,31 @@ def new_revenue(request, id):
 			
 	return render(request, 'business/new_revenue.html', {'form': form, 'batch':batch})
 
-def profile(request,editor):
-    profile = UserProfile.get_by_profile(editor)
-    ctx={
-		"profile": profile,
-	}
 
-    return render(request, 'profile/profile.html',ctx)
+@login_required(login_url='/accounts/login/')
+def profile(request, editor):
+		profile = UserProfile.get_by_profile(editor)
+
+		return render(request, 'profile/profile.html', {'profile': profile, "editor": editor})
 
 
+
+@login_required(login_url='/accounts/login/')
 def new_profile(request):
-	
+		current_user = request.user
 
-	if request.method == 'POST':
-		form = UserForm(request.POST, current_user, request.FILES)
+		if request.method == 'POST':
+				form = UserForm(request.POST, request.FILES)
 
-		if form.is_valid():
-			form.save()
+				if form.is_valid():
+						profile = form.save(commit=False)
+						profile.editor = current_user
+						profile.save()
+				return redirect('profile', current_user)
+		else:
+				form = UserForm()
 
-		return redirect('profile')
-
-
-	else:
-		form = UserForm()
-
-	context = {'form': form}
-
-	return render(request, 'profile/new_profile.html',context)
+		return render(request, 'django_registration/registration_complete.html', {'form': form})
 
 
 

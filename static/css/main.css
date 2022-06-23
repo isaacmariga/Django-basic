@@ -1,6 +1,14 @@
+body{
+  background-image: url("/static/images/back9.jpeg");
+  min-height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat
+}
+
+
 .btn {
   margin: 5px;
-  background-color: #ecb21f;
+  background-color: #11b42c;
   border-style: solid;
   width: fit-content;
   padding: 10px 10px;

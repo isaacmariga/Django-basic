@@ -9,7 +9,7 @@
               <div class="media align-items-end profile-header">
                 
                   <div class="profile mr-3"><img src="{{profile.picture.url}}" alt="..." width="130"
-                          class="rounded mb-2 img-thumbnail"> <span class="btn"><a href="{% url 'new_profile' %}">Edit Profile</a></span>    </div>
+                          class="rounded mb-2 img-thumbnail"> <span ><a class="btn"href="{% url 'new_profile' %}">Edit Profile</a></span>    </div>
                   <div class="media-body mb-5 text-white">
                       <h4 class="mt-0 mb-0" style="margin: 4rem 0 3rem; padding: 0.5rem 0.5rem 0.5rem 0.5rem">{{profile.name}}</h4>
                       <p class="small mb-4"> <i class="fa fa-map-marker mr-2"></i>{{profile.email}}</p>

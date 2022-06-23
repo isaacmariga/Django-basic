@@ -1,13 +1,13 @@
- {%extends 'registration/base.html'%}{% load django_bootstrap5%}
+ {%extends 'registration/base.html'%}{% load django_bootstrap5%}{% load static%}
 
 {% block content %}
 {{block.super}}
 {% if form.errors %}
 <p> Incorrect Password or Username </p>
 {% endif %}
-
+<center>
 <div class="form-rl">
-  <form action="/accounts/login/" method="post">
+  <form class="form"action="/accounts/login/" method="post">
   {% csrf_token %} {% bootstrap_form form%}
 
   <div class="border-top pt-3">
@@ -19,4 +19,18 @@
   <input type="hidden" name="next" value="{{next}}" />
 </form>
 
-{% endblock%}
+</center>
+<style>
+	.form{
+    margin: 40px;
+    width: 40vw;
+	  padding: 20px;
+	  background-color: rgba(41, 162, 1, 0.575);
+	  color: rgb(0, 0, 0);
+	  border-radius: 5px;
+    box-shadow: 10px 10px 10px rgba(0,0,0,.5);
+
+	}
+
+</style>
+>{% endblock%}

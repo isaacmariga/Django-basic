@@ -5,7 +5,7 @@ body{
 }
 
 /* registration form */
-.form-rl{
+form{
     width: 50%;
     margin: 0 25%;
     align-items: center;

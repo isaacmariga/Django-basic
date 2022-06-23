@@ -8,7 +8,7 @@
 
   <!-- Buttons -->
   <center>
-    <div class="buttons" style="margin: 100px;">
+    <div class="buttons" style="margin: 100px 0px 100px 0px;">
       <a class="btn" href="{%url 'new_revenue' batch.id%}">Add revenue</a>
       <a class="btn" href="{%url 'new_expense' batch.id%}">Add expense</a>
       <a class="btn" href="{%url 'new_customer' batch.id%}">Add customer</a>
@@ -19,6 +19,7 @@
   <!-- Profit -->
   <div class="body">
     <div>
+      <a href="" class="featured" data-bs-toggle="modal" data-bs-target="#base">
       <div class="card d-flex position-relative flex-column">
         <div class='imgContainer'>
           <img src="{% static 'images/profits.jpg'%}">
@@ -30,15 +31,15 @@
           <p>{{revenue_sum}} vs {{expense_sum}}</p>
           <p><strong>Kes: {{real_profit}}</strong></p>
 
-        </div>
       </div>
-      <div class="featured" data-bs-toggle="modal" data-bs-target="#base">
-        <a class="btn">Details</a>
       </div>
+    </a>
 
     </div>
     <!-- Sales -->
     <div>
+      <a href="" class="featured" data-bs-toggle="modal" data-bs-target="#customer_revenue">
+
       <div class="card d-flex position-relative flex-column">
         <div class='imgContainer'>
           <img src="{% static 'images/sales.jpg'%}">
@@ -54,15 +55,15 @@
 
 
       </div>
-      <div class="featured" data-bs-toggle="modal" data-bs-target="#customer_revenue">
-        <a class="btn">Details</a>
-      </div>
+      </a>
     </div>
 
     <!-- Expenses -->
     <div>
+      <a href="" class="featured" data-bs-toggle="modal" data-bs-target="#expenses">
+
       <div class="card d-flex position-relative flex-column">
-        <div class='imgContainer' >
+        <div class='imgContainer'>
           <img src="{% static 'images/expense.jpg'%}">
         </div>
         <div class="content">
@@ -73,14 +74,14 @@
 
         </div>
       </div>
-      <div class="featured" data-bs-toggle="modal" data-bs-target="#expenses">
-        <a class="btn">Details</a>
-      </div>
+      </a>
     </div>
     <!-- Deaths -->
     <div>
+      <a href=""class="featured" data-bs-toggle="modal" data-bs-target="#death">
+
       <div class="card d-flex position-relative flex-column">
-        <div class='imgContainer' >
+        <div class='imgContainer'>
           <img src="{% static 'images/death.jpg'%}">
 
         </div>
@@ -91,24 +92,25 @@
 
         </div>
       </div>
-      <div class="featured" data-bs-toggle="modal" data-bs-target="#death">
         <a class="btn">Details</a>
-      </div>
+      </a>
     </div>
   </div>
 
 
 
   <style>
+    a{
+      text-decoration: none;
+    }
     /* boxes */
     .body {
       display: grid;
       gap: 1rem;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
     }
 
     .container .card {
-      height: 100%;
 
       max-width: 300px;
       height: 215px;
@@ -150,34 +152,36 @@
     }
 
     .container .card:hover .content {
-      height: 100%;
-
       visibility: visible;
       opacity: 1;
       margin-top: -40px;
       transition-delay: 0.3s;
     }
 
-    /* @media (max-width: 330px) {
-      .container .card .imgContainer {
-        left: -2px;
-      }
-    } */
 
     /*  boxes end*/
     /* Modal */
-    .graph-container {
+    .details {
+      height: 100%;
+      width: 100%;
+    }
+    .graph-text{
+      padding: 20px;
+    }
 
-      border-color:rgb(0, 0, 0);
+    .graph-container {
+      box-shadow: 10px 10px 10px rgba(0,0,0,.5);
+
+      border-color: rgb(0, 0, 0);
       border-style: solid;
       border-width: 1px;
       border-radius: 2%;
-      margin: 10px;
+      margin: 30px 20px 30px 20px;
     }
 
     .modal,
-    .fade,
-    .show {
+    .fade
+    {
 
       height: 100vh;
       background-color: rgba(0, 0, 0, 0.3);
@@ -191,23 +195,14 @@
       color: #000;
     }
 
-    .modal-content {
-      background-color: #ecb21f;
-      border-style: solid;
-      border: none;
-      background: transparent;
-      padding: 0 19px;
-    }
 
-    .close {
-      position: relative;
-      top: 48px;
-      left: 13px;
-      z-index: 1;
-      font-size: 30px;
-      font-weight: bold;
-      line-height: 1;
-      color: black;
+
+    .modal-content{
+      padding: 20px;
+      border-color: #16c33e;
+      border-style: solid;
+      border-width: 3px;
+      box
     }
 
     .modal-header {
@@ -219,11 +214,7 @@
       margin: -1rem -1rem -1rem auto;
     }
 
-    .modal-body {
-      border: none;
-      background-color: white;
-      padding-bottom: 5px;
-    }
+
 
     .close.focus,
     .close:focus {
@@ -231,9 +222,28 @@
       box-shadow: none !important;
     }
 
+
+    .close {
+      border-radius: 4px;
+      background-color: #16c33e;
+      border-style: solid;
+      position: relative;
+      padding: 10px 10px;
+      transition: 0.5s;
+      z-index: 1;
+      font-size: 30px;
+      font-weight: bold;
+      line-height: 1;
+      color: rgb(255, 255, 255);
+    }
+
+    .close:hover{
+      color: #050801;
+
+    }
     .btn {
       margin: 5px;
-      background-color: #ecb21f;
+      background-color: #16c33e;
       border-style: solid;
       width: fit-content;
       padding: 10px 10px;
@@ -255,16 +265,24 @@
   <div class="modal fade" id="base" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
-        <div class="modal-header"> <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+        <div class="modal-header "> <button type="button" class="close"  data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span> </button>
         </div>
         <div class="modal-body p-0 row">
-          <div class=""> <img src="" width="100%" height="100%" /> </div>
-          <div class="details col-12 col-lg-7">
-            <center>
+          <center>
+
+            <div class="modal-titles">
+              <h2>Revenue Graphs</h2>
+            </div>
+            <div class="details col-12 col-lg-7">
 
               <!-- Batch Charts -->
               <div class="graph-container">
+                <div class="graph-text">
+                  <p>Difference between the predicted profit at the beginning of the project and the actual profits at
+                    the
+                    end</p>
+                </div>
                 <div>
                   <canvas id="myChart2"></canvas>
                 </div>
@@ -303,7 +321,11 @@
 
 
               <!--Revenue after deaths -->
+
               <div class="graph-container">
+                <div class="graph-text">
+                  <p>Possible earnings without any deaths vs actual revenue due to deaths</p>
+                </div>
                 <div>
                   <canvas id="myChart12"></canvas>
                 </div>
@@ -342,7 +364,12 @@
 
 
               <!--Revenue to expenses -->
+
+
               <div class="graph-container">
+                <div class="graph-text">
+                  <p>Total Revenues before expenses and what you have after expenses </p>
+                </div>
                 <div>
                   <canvas id="myChart10"></canvas>
                 </div>
@@ -378,302 +405,368 @@
                 </script>
               </div>
 
-            </center>
-          </div>
-
+          </center>
         </div>
+
       </div>
     </div>
   </div>
+</div>
 
-  <!-- Expenses modal -->
+<!-- Expenses modal -->
 
-  <div class="modal fade" id="expenses" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header"> <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span> </button>
+<div class="modal fade" id="expenses" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header"> <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span> </button>
+      </div>
+      <div class="modal-body p-0 row">
+        <div class="modal-titles">
+          <h2>Expenses Graphs</h2>
         </div>
-        <div class="modal-body p-0 row">
-          <div class=""> <img src="" width="100%" height="100%" /> </div>
-          <div class="details col-12 col-lg-7">
-            <center>
-              <!-- Item expense graph -->
-              <div class="graph-container">
-                <div>
-                  <canvas id="item_expense"></canvas>
-                </div>
+        <div class="details col-12 col-lg-7">
+          <center>
+            <!-- Item expense graph -->
+            <div class="graph-container">
+              <div class="graph-text">
+                <p>Specific items money was spent on </p>
+              </div>
+              <div>
+                <canvas id="item_expense"></canvas>
+              </div>
 
-                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+              <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-                <script>
-                  const labels3 = {{ expense_item_label| safe}};
+              <script>
+                const labels3 = {{ expense_item_label| safe}};
 
-                  const data3 = {
-                    labels: labels3,
-                    datasets: [{
-                      label: 'Expences by details',
-                      backgroundColor: ['red', 'blue', 'orange'],
-                      borderColor: 'rgb(255, 99, 132)',
-                      data: {{ expense_item_amount| safe}},
+                const data3 = {
+                  labels: labels3,
+                  datasets: [{
+                    label: 'Expences by details',
+                    backgroundColor: ['red', 'blue', 'orange'],
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: {{ expense_item_amount| safe}},
     }]
   };
 
-                  const config3 = {
-                    type: 'bar',
-                    data: data3,
-                    options: {}
-                  };
-                </script>
+                const config3 = {
+                  type: 'bar',
+                  data: data3,
+                  options: {}
+                };
+              </script>
 
 
-                <script>
-                  const group_expense = new Chart(
-                    document.getElementById('item_expense'),
-                    config3
-                  );
-                </script>
+              <script>
+                const group_expense = new Chart(
+                  document.getElementById('item_expense'),
+                  config3
+                );
+              </script>
+            </div>
+
+            <!-- group expense graph -->
+
+            <div class="graph-container">
+              <div class="graph-text">
+                <p>Main categories money was spent on </p>
+              </div>
+              <div>
+                <canvas id="myChart5"></canvas>
               </div>
 
-              <!-- group expense graph -->
+              <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-              <div class="graph-container">
-                <div>
-                  <canvas id="myChart5"></canvas>
-                </div>
+              <script>
+                const labels5 = {{ expense_group_label| safe}};
 
-                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-                <script>
-                  const labels5 = {{ expense_group_label| safe}};
-
-                  const data5 = {
-                    labels: labels5,
-                    datasets: [{
-                      label: 'Expenses by category',
-                      backgroundColor: ['red', 'blue', 'orange'],
-                      borderColor: 'rgb(255, 99, 132)',
-                      data: {{ expense_group_amount| safe}},
+                const data5 = {
+                  labels: labels5,
+                  datasets: [{
+                    label: 'Expenses by category',
+                    backgroundColor: ['red', 'blue', 'orange'],
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: {{ expense_group_amount| safe}},
     }]
   };
 
-                  const config5 = {
-                    type: 'bar',
-                    data: data5,
-                    options: {}
-                  };
-                </script>
+                const config5 = {
+                  type: 'bar',
+                  data: data5,
+                  options: {}
+                };
+              </script>
 
 
-                <script>
-                  const myChart5 = new Chart(
-                    document.getElementById('myChart5'),
-                    config5
-                  );
-                </script>
-              </div>
-            </center>
-          </div>
-
+              <script>
+                const myChart5 = new Chart(
+                  document.getElementById('myChart5'),
+                  config5
+                );
+              </script>
+            </div>
+          </center>
         </div>
+
       </div>
     </div>
   </div>
-  <!-- Death Modal -->
+</div>
+<!-- Death Modal -->
 
-  <div class="modal fade" id="death" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header"> <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span> </button>
+<div class="modal fade" id="death" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header"> <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span> </button>
+      </div>
+      <div class="modal-body p-0 row">
+        <div class="modal-titles">
+          <h2>Deaths Graphs</h2>
         </div>
-        <div class="modal-body p-0 row">
-          <div class=""> <img src="" width="100%" height="100%" /> </div>
-          <div class="details col-12 col-lg-7">
-            <center>
-              <!-- death graph -->
+        <div class="details col-12 col-lg-7">
+          <center>
+            <!-- death graph -->
 
-              <div class="graph-container">
-                <div>
-                  <canvas id="myChart6"></canvas>
-                </div>
+            <div class="graph-container">
 
-                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+              <div class="graph-text">
+                <p>Number of deaths and the reasons</p>
+              </div>
+              <div>
+                <canvas id="myChart6"></canvas>
+              </div>
 
-                <script>
-                  const labels6 = {{ death_label| safe}};
+              <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-                  const data6 = {
-                    labels: labels6,
-                    datasets: [{
-                      label: 'Deaths by reason',
-                      backgroundColor: ['red', 'blue', 'orange'],
-                      borderColor: 'rgb(255, 99, 132)',
-                      data: {{ death_amount| safe}},
+              <script>
+                const labels6 = {{ death_label| safe}};
+
+                const data6 = {
+                  labels: labels6,
+                  datasets: [{
+                    label: 'Deaths by reason',
+                    backgroundColor: ['red', 'blue', 'orange'],
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: {{ death_amount| safe}},
     }]
   };
 
-                  const config6 = {
-                    type: 'bar',
-                    data: data6,
-                    options: {}
-                  };
-                </script>
+                const config6 = {
+                  type: 'bar',
+                  data: data6,
+                  options: {}
+                };
+              </script>
 
 
-                <script>
-                  const myChart6 = new Chart(
-                    document.getElementById('myChart6'),
-                    config6
-                  );
-                </script>
+              <script>
+                const myChart6 = new Chart(
+                  document.getElementById('myChart6'),
+                  config6
+                );
+              </script>
+            </div>
+
+            <!--Revenue after deaths -->
+
+            <div class="graph-container">
+              <div class="graph-text">
+                <p>Lost earnings due to deaths</p>
               </div>
-            </center>
-          </div>
+              <div>
+                <canvas id="myChart13"></canvas>
+              </div>
 
+              <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+              <script>
+                const labels13 = {{ loss_to_death_labelv2| safe}};
+
+                const data13 = {
+                  labels: labels13,
+                  datasets: [{
+                    label: 'Revenue after deaths',
+                    backgroundColor: ['red', 'blue', 'orange'],
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: {{ loss_to_death_datav2| safe}},
+                }]
+              };
+
+                const config13 = {
+                  type: 'bar',
+                  data: data13,
+                  options: {}
+                };
+              </script>
+
+
+              <script>
+                const myChart13 = new Chart(
+                  document.getElementById('myChart13'),
+                  config13
+                );
+              </script>
+            </div>
+          </center>
         </div>
+
       </div>
     </div>
   </div>
-  <!--Revenue by customer Modal -->
+</div>
+<!--Revenue by customer Modal -->
 
-  <div class="modal fade" id="customer_revenue" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header"> <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span> </button>
+<div class="modal fade" id="customer_revenue" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header"> <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span> </button>
+      </div>
+      <div class="modal-body p-0 row">
+        <div class="modal-titles">
+          <h2>Sales and Customer Graphs</h2>
         </div>
-        <div class="modal-body p-0 row">
-          <div class=""> <img src="" width="100%" height="100%" /> </div>
-          <div class="details col-12 col-lg-7">
-            <center>
+        <div class="details col-12 col-lg-7">
+          <center>
 
-              <!-- units bought  by customer graph -->
+            <!-- units bought  by customer graph -->
 
-              <div class="graph-container">
-                <div>
-                  <canvas id="myChart7"></canvas>
-                </div>
+            <div class="graph-container">
+              <div class="graph-text">
+                <p>Total revenue bought by each customer</p>
+              </div>
+              <div>
+                <canvas id="myChart7"></canvas>
+              </div>
 
-                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+              <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-                <script>
-                  const labels7 = {{ revenue_customer_label| safe}};
+              <script>
+                const labels7 = {{ revenue_customer_label| safe}};
 
-                  const data7 = {
-                    labels: labels7,
-                    datasets: [{
-                      label: 'Revenue by customer',
-                      backgroundColor: ['red', 'blue', 'orange'],
-                      borderColor: 'rgb(255, 99, 132)',
-                      data: {{ total_by_customer_amount| safe}},
+                const data7 = {
+                  labels: labels7,
+                  datasets: [{
+                    label: 'Revenue by customer',
+                    backgroundColor: ['red', 'blue', 'orange'],
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: {{ total_by_customer_amount| safe}},
     }]
   };
 
-                  const config7 = {
-                    type: 'bar',
-                    data: data7,
-                    options: {}
-                  };
-                </script>
+                const config7 = {
+                  type: 'bar',
+                  data: data7,
+                  options: {}
+                };
+              </script>
 
 
-                <script>
-                  const myChart7 = new Chart(
-                    document.getElementById('myChart7'),
-                    config7
-                  );
-                </script>
+              <script>
+                const myChart7 = new Chart(
+                  document.getElementById('myChart7'),
+                  config7
+                );
+              </script>
+            </div>
+
+
+
+            <!-- units bought  by customer graph -->
+
+            <div class="graph-container">
+              <div class="graph-text">
+                <p>Number of units bought by each customer</p>
+              </div>
+              <div>
+                <canvas id="myChart8"></canvas>
               </div>
 
+              <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+              <script>
+                const labels8 = {{ revenue_customer_label| safe}};
 
-              <!-- units bought  by customer graph -->
-
-              <div class="graph-container">
-                <div>
-                  <canvas id="myChart8"></canvas>
-                </div>
-
-                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-                <script>
-                  const labels8 = {{ revenue_customer_label| safe}};
-
-                  const data8 = {
-                    labels: labels8,
-                    datasets: [{
-                      label: 'Units bought by customer',
-                      backgroundColor: ['red', 'blue', 'orange'],
-                      borderColor: 'rgb(255, 99, 132)',
-                      data: {{ num_per_customer_amount| safe}},
+                const data8 = {
+                  labels: labels8,
+                  datasets: [{
+                    label: 'Units bought by customer',
+                    backgroundColor: ['red', 'blue', 'orange'],
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: {{ num_per_customer_amount| safe}},
     }]
   };
 
-                  const config8 = {
-                    type: 'bar',
-                    data: data8,
-                    options: {}
-                  };
-                </script>
+                const config8 = {
+                  type: 'bar',
+                  data: data8,
+                  options: {}
+                };
+              </script>
 
 
-                <script>
-                  const myChart8 = new Chart(
-                    document.getElementById('myChart8'),
-                    config8
-                  );
-                </script>
+              <script>
+                const myChart8 = new Chart(
+                  document.getElementById('myChart8'),
+                  config8
+                );
+              </script>
+            </div>
+
+
+
+
+            <!-- price bought  by customer graph -->
+
+            <div class="graph-container">
+              <div class="graph-text">
+                <p>Average price a customer bought a unit=</p>
+              </div>
+              <div>
+                <canvas id="myChart9"></canvas>
               </div>
 
+              <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+              <script>
+                const labels9 = {{ revenue_customer_label| safe}};
 
-
-              <!-- price bought  by customer graph -->
-
-              <div class="graph-container">
-                <div>
-                  <canvas id="myChart9"></canvas>
-                </div>
-
-                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-                <script>
-                  const labels9 = {{ revenue_customer_label| safe}};
-
-                  const data9 = {
-                    labels: labels9,
-                    datasets: [{
-                      label: 'Units bought by customer',
-                      backgroundColor: ['red', 'blue', 'orange'],
-                      borderColor: 'rgb(255, 99, 132)',
-                      data: {{ rev_customer_amount| safe}},
+                const data9 = {
+                  labels: labels9,
+                  datasets: [{
+                    label: 'Units bought by customer',
+                    backgroundColor: ['red', 'blue', 'orange'],
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: {{ rev_customer_amount| safe}},
     }]
   };
 
-                  const config9 = {
-                    type: 'bar',
-                    data: data9,
-                    options: {}
-                  };
-                </script>
+                const config9 = {
+                  type: 'bar',
+                  data: data9,
+                  options: {}
+                };
+              </script>
 
 
-                <script>
-                  const myChart9 = new Chart(
-                    document.getElementById('myChart9'),
-                    config9
-                  );
-                </script>
-              </div>
-            </center>
-          </div>
-
+              <script>
+                const myChart9 = new Chart(
+                  document.getElementById('myChart9'),
+                  config9
+                );
+              </script>
+            </div>
+          </center>
         </div>
+
       </div>
     </div>
   </div>
+</div>
 
-  {% endblock %}
+{% endblock %}

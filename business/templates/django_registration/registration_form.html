@@ -1,18 +1,6 @@
-<<<<<<< HEAD
-{%extends 'business/base.html'%}{% load django_bootstrap5%}
-
-{% block content %}
-{{block.super}}
-
-
-
-{% if form.errors %}
-<p> Registration Failed </p>
-=======
 {%extends 'business/base.html'%}{% load django_bootstrap5%} {% block content %}
 {{block.super}} {% if form.errors %}
 <p>Registration Failed</p>
->>>>>>> ft-main
 {% endif %}
 
 <div class="form-rl">
@@ -26,18 +14,7 @@
       <input type="submit" class="btn btn-primary btn-sm" value="Sign Up" />
     </div>
 
-<<<<<<< HEAD
-  <div class="form-group">
-    <input type="submit" class="btn btn-primary btn-sm" value="Sign Up">
-  </div>
-
-  <input type="hidden" name="next" value="{{next}}">
-
-</form>
-{% endblock %}
-=======
     <input type="hidden" name="next" value="{{next}}" />
   </form>
 </div>
 {% endblock%}
->>>>>>> ft-main

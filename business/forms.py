@@ -1,5 +1,5 @@
 from django import forms
-from .models import Batch, Deaths, Expenses, Revenue, Customers,UserProfile  , ExpenseGroup
+from .models import Batch, Deaths, Expenses, Revenue, Customers,UserProfile, ExpenseGroup
 # from bootstrap_datepicker_plus.widgets import DatePickerInput
 
 class BatchForm(forms.ModelForm):

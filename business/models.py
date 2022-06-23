@@ -3,20 +3,19 @@ from django.db.models import Avg, Sum, Count, Max
 from django.contrib.auth.models import User
 
 
-
 # Create your models here.
 
 
 
 class Batch(models.Model):
 	farm = models.CharField(max_length=30)
-	picture = models.ImageField(upload_to = 'batch/', blank=True, null=True)
+	picture = models.ImageField(upload_to = 'batch/')
 	purchased = models.IntegerField()
 	unit_price = models.IntegerField()
 	projected_SP = models.IntegerField()
 	start_date = models.DateField(auto_now_add=False)
 	end_date = models.DateField(auto_now_add=False)
-	user = models.ForeignKey(User,on_delete=models.CASCADE, blank=True, null=True)
+	user = models.ForeignKey(User,on_delete=models.CASCADE)
 
 	def __str__(self):
 		return str(self.id)
@@ -25,11 +24,6 @@ class Batch(models.Model):
 		result = Batch.objects.all()
 		return result
 
-
-	@classmethod
-	def get_by_user_and_id(cls, id):
-		result = cls.objects.get(id=id)
-		return result
 
 	@classmethod
 	def get_by_id(cls, id):
@@ -289,22 +283,3 @@ class Revenue(models.Model):
 
 			yield total		
 
-		
-	
-
-class UserProfile(models.Model):
-	name = models.CharField(max_length=255)
-	email = models.EmailField(max_length=255, blank=True, null=True)
-	bio = models.TextField()
-	picture = models.ImageField(max_length=255, blank=True)
-	editor = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
-
-	def __str__(self):
-		return str(self.id)
-
-
-	@classmethod
-	def get_by_profile(cls, editor):
-		profile = UserProfile.objects.filter(editor__username=editor).last()
-
-		return profile

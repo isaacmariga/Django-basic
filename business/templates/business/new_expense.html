@@ -11,7 +11,9 @@
   {% bootstrap_form form%}
 
   <input type="submit" class="btn btn-success btn-lg" value="Post">
+
 </form>
+<a href="{% url 'new_expense_group' batch.id%}"><button class="btn">New Group</button></a>
 
 
 </center>

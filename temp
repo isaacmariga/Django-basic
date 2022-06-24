@@ -1,5 +1,37 @@
-		# test2 = ExpenseGroup.objects.all()
-		# lisp = []
-		# for x in test2:
-		# 		lisp.append(x.group)
-		# 		print(lisp)
+{%extends 'registration/base.html'%}{% load django_bootstrap5%} {% block content %}
+{{block.super}} {% if form.errors %}
+<p>Registration Failed</p>
+{% endif %}
+
+<center>
+<div class="form-rl">
+  <form class="form" action="{%url 'new_profile' %}" method="post">
+    {% csrf_token %} {% bootstrap_form form%}
+     <div class="border-top pt-3">
+      <small class="text-muted">Already have an Account ? <a href="{% url 'login' %}">login</a></small>
+    </div>
+
+    <div class="form-group">
+      <input type="submit" class="btn btn-primary btn-sm" value="Sign Up" />
+    </div>
+
+    <input type="hidden" name="next" value="{{next}}" />
+  </form>
+</div>
+
+</center>
+<style>
+	.form{
+    margin: 40px;
+    width: 40vw;
+	  padding: 20px;
+	  background-color: rgba(41, 162, 1, 0.575);
+	  color: rgb(0, 0, 0);
+	  border-radius: 5px;
+    box-shadow: 10px 10px 10px rgba(0,0,0,.5);
+
+	}
+
+</style>
+
+{% endblock%}

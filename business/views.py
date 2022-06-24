@@ -1,7 +1,6 @@
-import re
 from django.shortcuts import render, redirect
 from .models import Batch, Deaths, Expenses, Revenue, Customers,UserProfile
-from .forms import BatchForm, DeathsForm, ExpensesForm, RevenueForm, CustomersForm,UserForm, ExpenseGroupForm
+from .forms import BatchForm, DeathsForm, ExpensesForm, RevenueForm, CustomersForm,UserProfileForm, ExpenseGroupForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
@@ -169,7 +168,7 @@ def new_customer(request, id):
 			name.user = current_user
 			name.batch = batch
 			name.save()
-		return redirect( 'batch', batch.id )
+		return redirect( 'new_revenue', batch.id )
 	else:
 		form = CustomersForm()
 			
@@ -195,9 +194,26 @@ def new_expense(request, id):
 		return redirect( 'batch', batch.id)
 	else:
 		form = ExpensesForm()
-		form2 = ExpenseGroupForm()
 			
-	return render(request, 'business/new_expense.html', {'form': form, 'form2': form2 ,'batch':batch})
+	return render(request, 'business/new_expense.html', {'form': form, 'batch':batch})
+
+@login_required(login_url='/accounts/login/')
+def new_expense_group(request, id):
+	batch = Batch.get_by_id(id)
+	current_user = request.user			
+	if request.method == 'POST':
+		form = ExpenseGroupForm(request.POST)
+
+		if form.is_valid():
+			name = form.save(commit=False)
+			name.user = current_user
+			name.batch = batch
+			name.save()
+		return redirect( 'new_expense', batch.id)
+	else:
+		form = ExpenseGroupForm()
+			
+	return render(request, 'business/new_expense_group.html', {'form': form,'batch':batch})
 
 
 	
@@ -232,17 +248,17 @@ def new_profile(request):
 		current_user = request.user
 
 		if request.method == 'POST':
-				form = UserForm(request.POST, request.FILES)
+				form = UserProfileForm(request.POST, request.FILES)
 
 				if form.is_valid():
 						profile = form.save(commit=False)
-						profile.editor = current_user
+						profile.user = current_user
 						profile.save()
 				return redirect('profile', current_user)
 		else:
-				form = UserForm()
+				form = UserProfileForm()
 
-		return render(request, 'django_registration/registration_complete.html', {'form': form})
+		return render(request, 'profile/new_profile.html', {'form': form})
 
 
 

@@ -37,8 +37,8 @@ class CustomersForm(forms.ModelForm):
     exclude=['batch']
 
 
-class UserForm(forms.ModelForm):
+class UserProfileForm(forms.ModelForm):
   class Meta:
-    model = UserProfile    	
-    fields=('name', 'email','bio','picture')
-			
+    model = UserProfile
+    exclude = ['user']
+

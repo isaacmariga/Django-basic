@@ -58,8 +58,8 @@ def batch(request, id):
 
 #  Graph viewss
 # batch graphs
-	revenue_labels= ["Expected Revenue", "Actual revenue"]
-	revenue_data =[expected_revenue,real_profit ]
+	revenue_labels= ["Expected Gross Revenue","Total gross revenue","Actual revenue"]
+	revenue_data =[expected_revenue,revenue_sum,real_profit ]
 	revenue_diff = (expected_revenue -real_profit)
 #Revenue to expenses
 	expenses_to_revenue_label= ["Total Revenue","Total Expenses", "Net Revenue"]

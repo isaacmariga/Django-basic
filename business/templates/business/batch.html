@@ -15,8 +15,14 @@
       <a class="btn" href="{%url 'new_death' batch.id%}">Add death</a>
     </div>
   </center>
+  <center>
+  <div style="background-color: #16c33ee6; padding: 50px;margin-bottom:50px;  border-radius: 10px;" >
+    <h2 style="color: rgb(0, 0, 0) ;">Expected Profit : {{expected_revenue}}</h2>
+    <h2 style="color: rgb(0, 0, 0) ;">Actual profit : {{real_profit}}</h2>
+    <h2 style="color: rgb(0, 0, 0) ;">Difference : {{diff_exp_real}}</h2>
+  </div>
 
-  <!-- Profit -->
+</center>  <!-- Profit -->
   <div class="body">
     <div>
       <a href="" class="featured" data-bs-toggle="modal" data-bs-target="#base">

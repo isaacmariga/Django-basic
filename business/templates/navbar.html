@@ -1,8 +1,8 @@
 {% load django_bootstrap5%}{% load static%}
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light">
   <div class="container-fluid">
     <div>
-      <a href="{% url 'home' %}"><img class="navbar-logo" style="height: 60px; width: 60px; width: 60px" src="{% static 'images/flaticon.png' %}"
+      <a href="/"><img class="navbar-logo" style="height: 60px; width: 60px; width: 60px" src="{% static 'images/flaticon.png' %}"
           alt="image alt text" /></a>
      <a class="navbar-brand" href="/" style="font-family: 'Playfair Display', serif; font-size:30px;">Farm Hand</a>
     </div>
@@ -20,10 +20,10 @@
           <a class="nav-link active" aria-current="page" href="{% url 'profile' user %}">Profile</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{% url 'home'%}">My businesses</a>
+          <a class="nav-link active" aria-current="page" href="{% url 'home' user.id%}">My Dashboard</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{% url 'new_batch' %}">New batch</a>
+          <a class="nav-link active" aria-current="page" href="{% url 'new_batch' %}">New Venture</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/logout">Logout</a>
@@ -45,10 +45,12 @@
         </li>
         {% endif %}
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
     </div>
   </div>
 </nav>
+<style>
+
+.navbar{
+  background-color: transparent;
+}
+</style>

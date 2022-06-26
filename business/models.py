@@ -10,7 +10,7 @@ from cloudinary.models import CloudinaryField
 
 class Batch(models.Model):
 	farm = models.CharField(max_length=30)
-	picture = CloudinaryField('image')
+	picture = CloudinaryField('image',default='default.jpg')
 	purchased = models.IntegerField()
 	unit_price = models.IntegerField()
 	projected_SP = models.IntegerField()
@@ -30,6 +30,11 @@ class Batch(models.Model):
 	def get_by_id(cls, id):
 		result = cls.objects.get(id=id)
 		return result
+
+	@classmethod
+	def filter_by_user(cls, user):
+		result = cls.objects.filter(user=user).order_by('-id')
+		return result
 	
 	def purchase_cost(id):
 			u_p = list(Batch.objects.filter(id=id).aggregate(Sum('unit_price')).values())
@@ -48,6 +53,10 @@ class Batch(models.Model):
 			purch = int("".join(map(str,purch)))
 			cost = s_p * purch
 			return cost
+	def num_purchased(id):
+			purch = list(Batch.objects.filter(id=id).aggregate(Sum('purchased')).values())
+			purch = int("".join(map(str,purch)))
+			return purch
 
 class Customers(models.Model):
 	name = models.CharField(max_length=30)

@@ -16,405 +16,421 @@
     </div>
   </center>
   <center>
-  <div style="background-color: #16c33ee6; padding: 50px;margin-bottom:50px;  border-radius: 10px;" >
-    <h2 style="color: rgb(0, 0, 0) ;">Expected Gross Revenue : {{expected_revenue}}</h2>
-    <h2 style="color: rgb(0, 0, 0) ;">Actual profit : {{real_profit}}</h2>
-    <h2 style="color: rgb(0, 0, 0) ;">Difference : {{diff_exp_real}}</h2>
-  </div>
+    <div style="background-color: #16c33ee6; padding: 50px;margin-bottom:50px;  border-radius: 10px;    box-shadow: 15px 15px 10px rgba(0,0,0,.5);
+  ">
+      <h2 style="color: rgb(0, 0, 0) ;">Expected Gross Revenue : {{expected_revenue}}</h2>
+      <h2 style="color: rgb(0, 0, 0) ;">Actual profit : {{real_profit}}</h2>
+      <h2 style="color: rgb(0, 0, 0) ;">Difference : {{diff_exp_real}}</h2>
+    </div>
 
-</center>  <!-- Profit -->
+    <div style="background-color: #16c33ee6; padding: 50px;margin-bottom:50px;  border-radius: 10px;    box-shadow: 15px 15px 10px rgba(0,0,0,.5);
+  ">
+      <h2 style="color: rgb(0, 0, 0) ;">Recommended Selling price</h2>
+      <form class="form-inline my-2 my-lg-0 justify-content-between " role="search">
+        <input class="form-control mr-sm-2 " type="search" placeholder="Enter your desired profit in Kes"
+          aria-label="Search projects " name="desired_profit">
+        <button class="btn  " type="submit">Search</button>
+      </form>
+      <h2 style="color: rgb(0, 0, 0) ;">Sell at: : {{selling_price}}</h2>
+    </div>
+
+  </center> <!-- Profit -->
   <div class="body">
     <div>
       <a href="" class="featured" data-bs-toggle="modal" data-bs-target="#base">
-      <div class="card d-flex position-relative flex-column">
-        <div class='imgContainer'>
-          <img src="{% static 'images/profits.jpg'%}">
+        <div class="card d-flex position-relative flex-column">
+          <div class='imgContainer'>
+            <img src="{% static 'images/profits.jpg'%}">
 
+          </div>
+          <div class="content">
+            <h2>Profits</h2>
+            <p>Revenue - expenses</p>
+            <p>{{revenue_sum}} vs {{expense_sum}}</p>
+            <p><strong>Kes: {{real_profit}}</strong></p>
+
+          </div>
         </div>
-        <div class="content">
-          <h2>Profits</h2>
-          <p>Revenue - expenses</p>
-          <p>{{revenue_sum}} vs {{expense_sum}}</p>
-          <p><strong>Kes: {{real_profit}}</strong></p>
-
-      </div>
-      </div>
-    </a>
+      </a>
 
     </div>
     <!-- Sales -->
     <div>
       <a href="" class="featured" data-bs-toggle="modal" data-bs-target="#customer_revenue">
 
-      <div class="card d-flex position-relative flex-column">
-        <div class='imgContainer'>
-          <img src="{% static 'images/sales.jpg'%}">
+        <div class="card d-flex position-relative flex-column">
+          <div class='imgContainer'>
+            <img src="{% static 'images/sales.jpg'%}">
+
+          </div>
+          <div class="content">
+            <h2>Sales</h2>
+            <p><strong>Total Sales: Kes </strong>{{revenue_sum}} </p>
+            <!-- <p><strong>Customers</strong> </p> -->
+            <!-- <p><strong>Average per customer</strong>{{revenue_by_customer_amount}}</p> -->
+
+          </div>
+
 
         </div>
-        <div class="content">
-          <h2>Sales</h2>
-          <p><strong>Total Sales: Kes </strong>{{revenue_sum}} </p>
-          <!-- <p><strong>Customers</strong> </p> -->
-          <!-- <p><strong>Average per customer</strong>{{revenue_by_customer_amount}}</p> -->
-
-        </div>
-
-
-      </div>
       </a>
     </div>
 
     <!-- Expenses -->
     <div>
-      <a href="" class="featured" data-bs-toggle="modal" data-bs-target="#expenses">
+      <div href="" class="featured" data-bs-toggle="modal" data-bs-target="#expenses">
 
-      <div class="card d-flex position-relative flex-column">
-        <div class='imgContainer'>
-          <img src="{% static 'images/expense.jpg'%}">
-        </div>
-        <div class="content">
-          <h2>Expenses</h2>
-          <p><strong>Total Expenses: Kes </strong>{{expense_sum}}</p>
+        <div class="card d-flex position-relative flex-column">
+          <div class='imgContainer'>
+            <img src="{% static 'images/expense.jpg'%}">
+          </div>
+          <div class="content">
+            <h2>Expenses</h2>
+            <p><strong>Total Expenses: Kes </strong>{{expense_sum}}</p>
 
 
 
+          </div>
         </div>
       </div>
-      </a>
     </div>
     <!-- Deaths -->
     <div>
-      <a href=""class="featured" data-bs-toggle="modal" data-bs-target="#death">
+      <a href="" class="featured" data-bs-toggle="modal" data-bs-target="#death">
 
-      <div class="card d-flex position-relative flex-column">
-        <div class='imgContainer'>
-          <img src="{% static 'images/death.jpg'%}">
+        <div class="card d-flex position-relative flex-column">
+          <div class='imgContainer'>
+            <img src="{% static 'images/death.jpg'%}">
 
+          </div>
+          <div class="content">
+            <h2>Deaths</h2>
+            <p><strong>Number of Deaths: </strong>{{death_sum}}</p>
+
+
+          </div>
         </div>
-        <div class="content">
-          <h2>Deaths</h2>
-          <p><strong>Number of Deaths: </strong>{{death_sum}}</p>
-
-
-        </div>
-      </div>
     </div>
   </div>
+</div>
+</div>
 
 
 
-  <style>
-    a{
-      text-decoration: none;
-    }
-    /* boxes */
-    .body {
-      display: grid;
-      gap: 1rem;
-      grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-    }
+<style>
+  a {
+    text-decoration: none;
+  }
 
-    .container .card {
+  /* boxes */
+  .body {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  }
 
-      max-width: 300px;
-      height: 215px;
-      margin: 30px 10px;
-      padding: 20px 15px;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
-      transition: 0.3s ease-in-out;
-    }
+  .container .card {
 
-    .container .card:hover {
-      height: 450px;
-    }
+    max-width: 300px;
+    height: 215px;
+    margin: 30px 10px;
+    padding: 20px 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    transition: 0.3s ease-in-out;
+  }
 
-    .container .card .imgContainer {
-      position: relative;
-      width: 250px;
-      height: 250px;
-      top: -50px;
-      left: 10px;
-      z-index: 1;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-    }
+  .container .card:hover {
+    height: 450px;
+  }
 
-    .container .card .imgContainer img {
-      max-width: 100%;
-      border-radius: 4px;
-    }
+  .container .card .imgContainer {
+    position: relative;
+    width: 250px;
+    height: 250px;
+    top: -50px;
+    left: 10px;
+    z-index: 1;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  }
 
-    .container .card .content {
-      position: relative;
-      margin-top: -140px;
-      padding: 10px 15px;
-      text-align: center;
-      color: #111;
-      visibility: hidden;
-      opacity: 0;
-      pointer-events: none;
-      transition: 0.3s ease-in-out;
-    }
+  .container .card .imgContainer img {
+    max-width: 100%;
+    border-radius: 4px;
+  }
 
-    .container .card:hover .content {
-      visibility: visible;
-      opacity: 1;
-      margin-top: -40px;
-      transition-delay: 0.3s;
-    }
+  .container .card .content {
+    position: relative;
+    margin-top: -140px;
+    padding: 10px 15px;
+    text-align: center;
+    color: #111;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s ease-in-out;
+  }
 
-
-    /*  boxes end*/
-    /* Modal */
-    .details {
-      height: 100%;
-      width: 100%;
-    }
-    .graph-text{
-      padding: 20px;
-    }
-
-    .graph-container {
-      box-shadow: 10px 10px 10px rgba(0,0,0,.5);
-
-      border-color: rgb(0, 0, 0);
-      border-style: solid;
-      border-width: 1px;
-      border-radius: 2%;
-      margin: 30px 20px 30px 20px;
-    }
-
-    .modal,
-    .fade
-    {
-
-      height: 100vh;
-      background-color: rgba(0, 0, 0, 0.3);
-      padding-left: 15px;
-      padding-right: 15px;
-    }
-
-    h2 {
-      font-weight: bold;
-      margin-bottom: 15px;
-      color: #000;
-    }
+  .container .card:hover .content {
+    visibility: visible;
+    opacity: 1;
+    margin-top: -40px;
+    transition-delay: 0.3s;
+  }
 
 
+  /*  boxes end*/
+  /* Modal */
+  .details {
+    height: 100%;
+    width: 100%;
+  }
 
-    .modal-content{
-      padding: 20px;
-      border-color: #16c33e;
-      border-style: solid;
-      border-width: 3px;
-      box
-    }
+  .graph-text {
+    padding: 20px;
+  }
 
-    .modal-header {
-      border: none;
-    }
+  .graph-container {
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, .5);
 
-    .modal-header .close {
-      padding: 0rem 1rem !important;
-      margin: -1rem -1rem -1rem auto;
-    }
+    border-color: rgb(0, 0, 0);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 2%;
+    margin: 30px 20px 30px 20px;
+  }
+
+  .modal,
+  .fade {
+
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  h2 {
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #000;
+  }
 
 
 
-    .close.focus,
-    .close:focus {
-      outline: 0;
-      box-shadow: none !important;
-    }
+  .modal-content {
+    padding: 20px;
+    border-color: #16c33e;
+    border-style: solid;
+    border-width: 3px;
+    box
+  }
+
+  .modal-header {
+    border: none;
+  }
+
+  .modal-header .close {
+    padding: 0rem 1rem !important;
+    margin: -1rem -1rem -1rem auto;
+  }
 
 
-    .close {
-      border-radius: 4px;
-      background-color: #16c33e;
-      border-style: solid;
-      position: relative;
-      padding: 10px 10px;
-      transition: 0.5s;
-      z-index: 1;
-      font-size: 30px;
-      font-weight: bold;
-      line-height: 1;
-      color: rgb(255, 255, 255);
-    }
 
-    .close:hover{
-      color: #050801;
+  .close.focus,
+  .close:focus {
+    outline: 0;
+    box-shadow: none !important;
+  }
 
-    }
-    .btn {
-      margin: 5px;
-      background-color: #16c33e;
-      border-style: solid;
-      width: fit-content;
-      padding: 10px 10px;
-      color: white;
-      font-size: 12px;
-      text-transform: uppercase;
-      transition: 0.5s;
-      letter-spacing: 4px;
-      cursor: pointer;
-    }
 
-    .btn:hover {
-      color: #050801;
-    }
-  </style>
+  .close {
+    border-radius: 4px;
+    background-color: #16c33e;
+    border-style: solid;
+    position: relative;
+    padding: 10px 10px;
+    transition: 0.5s;
+    z-index: 1;
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 1;
+    color: rgb(255, 255, 255);
+  }
 
-  <!-- Base stats Modal -->
+  .close:hover {
+    color: #050801;
 
-  <div class="modal fade" id="base" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header "> <button type="button" class="close"  data-bs-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span> </button>
-        </div>
-        <div class="modal-body p-0 row">
-          <center>
+  }
 
-            <div class="modal-titles">
-              <h2>Revenue Graphs</h2>
+  .btn {
+    margin: 5px;
+    background-color: #16c33e;
+    border-style: solid;
+    width: fit-content;
+    padding: 10px 10px;
+    color: white;
+    font-size: 12px;
+    text-transform: uppercase;
+    transition: 0.5s;
+    letter-spacing: 4px;
+    cursor: pointer;
+  }
+
+  .btn:hover {
+    color: #050801;
+  }
+</style>
+
+<!-- Base stats Modal -->
+
+<div class="modal fade" id="base" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header "> <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span> </button>
+      </div>
+      <div class="modal-body p-0 row">
+        <center>
+
+          <div class="modal-titles">
+            <h2>Revenue Graphs</h2>
+          </div>
+          <div class="details col-12 col-lg-7">
+
+            <!-- Batch Charts -->
+            <div class="graph-container">
+              <div class="graph-text">
+                <p>Difference between the predicted profit at the beginning of the project and the actual profits at
+                  the
+                  end</p>
+              </div>
+              <div>
+                <canvas id="myChart2"></canvas>
+              </div>
+
+              <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+              <script>
+                const labels2 = {{ revenue_labels| safe}};
+
+                const data2 = {
+                  labels: labels2,
+                  datasets: [{
+                    label: 'Purchace price to expected revenue',
+                    backgroundColor: ['red', 'blue', 'orange'],
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: {{ revenue_data| safe}},
+    }]
+  };
+
+                const config2 = {
+                  type: 'bar',
+                  data: data2,
+                  options: {}
+                };
+              </script>
+
+
+              <script>
+                const myChart2 = new Chart(
+                  document.getElementById('myChart2'),
+                  config2
+                );
+              </script>
             </div>
-            <div class="details col-12 col-lg-7">
 
-              <!-- Batch Charts -->
-              <div class="graph-container">
-                <div class="graph-text">
-                  <p>Difference between the predicted profit at the beginning of the project and the actual profits at
-                    the
-                    end</p>
-                </div>
-                <div>
-                  <canvas id="myChart2"></canvas>
-                </div>
 
-                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-                <script>
-                  const labels2 = {{ revenue_labels| safe}};
+            <!--Revenue after deaths -->
 
-                  const data2 = {
-                    labels: labels2,
-                    datasets: [{
-                      label: 'Purchace price to expected revenue',
-                      backgroundColor: ['red', 'blue', 'orange'],
-                      borderColor: 'rgb(255, 99, 132)',
-                      data: {{ revenue_data| safe}},
+            <div class="graph-container">
+              <div class="graph-text">
+                <p>Possible earnings without any deaths vs actual revenue due to deaths</p>
+              </div>
+              <div>
+                <canvas id="myChart12"></canvas>
+              </div>
+
+              <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+              <script>
+                const labels12 = {{ loss_to_death_label| safe}};
+
+                const data12 = {
+                  labels: labels12,
+                  datasets: [{
+                    label: 'Revenue after deaths',
+                    backgroundColor: ['red', 'blue', 'orange'],
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: {{ loss_to_death_data| safe}},
     }]
   };
 
-                  const config2 = {
-                    type: 'bar',
-                    data: data2,
-                    options: {}
-                  };
-                </script>
+                const config12 = {
+                  type: 'bar',
+                  data: data12,
+                  options: {}
+                };
+              </script>
 
 
-                <script>
-                  const myChart2 = new Chart(
-                    document.getElementById('myChart2'),
-                    config2
-                  );
-                </script>
+              <script>
+                const myChart12 = new Chart(
+                  document.getElementById('myChart12'),
+                  config12
+                );
+              </script>
+            </div>
+
+
+
+            <!--Revenue to expenses -->
+
+
+            <div class="graph-container">
+              <div class="graph-text">
+                <p>Total Revenues before expenses and what you have after expenses </p>
+              </div>
+              <div>
+                <canvas id="myChart10"></canvas>
               </div>
 
+              <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+              <script>
+                const labels10 = {{ expenses_to_revenue_label| safe}};
 
-              <!--Revenue after deaths -->
-
-              <div class="graph-container">
-                <div class="graph-text">
-                  <p>Possible earnings without any deaths vs actual revenue due to deaths</p>
-                </div>
-                <div>
-                  <canvas id="myChart12"></canvas>
-                </div>
-
-                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-                <script>
-                  const labels12 = {{ loss_to_death_label| safe}};
-
-                  const data12 = {
-                    labels: labels12,
-                    datasets: [{
-                      label: 'Revenue after deaths',
-                      backgroundColor: ['red', 'blue', 'orange'],
-                      borderColor: 'rgb(255, 99, 132)',
-                      data: {{ loss_to_death_data| safe}},
+                const data10 = {
+                  labels: labels10,
+                  datasets: [{
+                    label: 'Purchace price to expected revenue',
+                    backgroundColor: ['red', 'blue', 'orange'],
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: {{ expenses_to_revenue_data| safe}},
     }]
   };
 
-                  const config12 = {
-                    type: 'bar',
-                    data: data12,
-                    options: {}
-                  };
-                </script>
+                const config10 = {
+                  type: 'bar',
+                  data: data10,
+                  options: {}
+                };
+              </script>
 
 
-                <script>
-                  const myChart12 = new Chart(
-                    document.getElementById('myChart12'),
-                    config12
-                  );
-                </script>
-              </div>
+              <script>
+                const myChart10 = new Chart(
+                  document.getElementById('myChart10'),
+                  config10
+                );
+              </script>
+            </div>
 
-
-
-              <!--Revenue to expenses -->
-
-
-              <div class="graph-container">
-                <div class="graph-text">
-                  <p>Total Revenues before expenses and what you have after expenses </p>
-                </div>
-                <div>
-                  <canvas id="myChart10"></canvas>
-                </div>
-
-                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-                <script>
-                  const labels10 = {{ expenses_to_revenue_label| safe}};
-
-                  const data10 = {
-                    labels: labels10,
-                    datasets: [{
-                      label: 'Purchace price to expected revenue',
-                      backgroundColor: ['red', 'blue', 'orange'],
-                      borderColor: 'rgb(255, 99, 132)',
-                      data: {{ expenses_to_revenue_data| safe}},
-    }]
-  };
-
-                  const config10 = {
-                    type: 'bar',
-                    data: data10,
-                    options: {}
-                  };
-                </script>
-
-
-                <script>
-                  const myChart10 = new Chart(
-                    document.getElementById('myChart10'),
-                    config10
-                  );
-                </script>
-              </div>
-
-          </center>
-        </div>
-
+        </center>
       </div>
+
     </div>
   </div>
+</div>
 </div>
 
 <!-- Expenses modal -->

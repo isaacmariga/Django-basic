@@ -4,7 +4,7 @@
 {{block.super}}
 
 <center>
-<form class="form" action="{%url 'new_batch'%}" method="post" enctype="multipart/form-data">
+<form class="form" action="{%url 'home' user.id%}" method="post" enctype="multipart/form-data">
   {%csrf_token%}
 
   {% bootstrap_form form%}

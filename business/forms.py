@@ -6,8 +6,11 @@ class BatchForm(forms.ModelForm):
   class Meta:
     model=Batch
     exclude=['user']
-    # widgets = { 'start_date' : DatePickerInput(), 'end_date' : DatePickerInput(),}
-
+    labels = {
+            'farm': _('Animal being kept'),
+            'purchased': _('Units purchased'),
+            'projected_SP': _('Projected Selling Price'),
+        }
 
 
 class DeathsForm(forms.ModelForm):

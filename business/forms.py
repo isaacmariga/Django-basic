@@ -1,16 +1,20 @@
 from django import forms
 from .models import Batch, Deaths, Expenses, Revenue, Customers,UserProfile, ExpenseGroup
 from django.utils.translation import gettext_lazy as _
-
+from django.contrib.admin.widgets import AdminDateWidget
 class BatchForm(forms.ModelForm):
   class Meta:
     model=Batch
-    exclude=['user']
+    exclude=['user', 'picture']
     labels = {
             'farm': _('Animal being kept'),
             'purchased': _('Units purchased'),
             'projected_SP': _('Projected Selling Price'),
         }
+    widgets= {
+      'end_date': AdminDateWidget()
+
+    }
 
 
 class DeathsForm(forms.ModelForm):
@@ -69,5 +73,5 @@ class CustomersForm(forms.ModelForm):
 class UserProfileForm(forms.ModelForm):
   class Meta:
     model = UserProfile
-    exclude = ['user']
+    exclude = ['editor']
 

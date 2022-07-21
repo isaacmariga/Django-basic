@@ -27,7 +27,7 @@
   ">
       <h2 style="color: rgb(0, 0, 0) ;">Recommended Selling price</h2>
       <form class="form-inline my-2 my-lg-0 justify-content-between " role="search">
-        <input class="form-control mr-sm-2 " type="search" placeholder="Enter your desired profit in Kes"
+        <input class="form-control mr-sm-2 " type="number" placeholder="Enter your desired profit in Kes"
           aria-label="Search projects " name="desired_profit">
         <button class="btn  " type="submit">Search</button>
       </form>
@@ -112,6 +112,14 @@
         </div>
     </div>
   </div>
+  <center>
+    <div class="buttons" style="margin: 100px 0px 100px 0px;">
+      <a class="btn" href="{%url 'new_revenue' batch.id%}">Add revenue</a>
+      <a class="btn" href="{%url 'new_expense' batch.id%}">Add expense</a>
+      <a class="btn" href="{%url 'new_customer' batch.id%}">Add customer</a>
+      <a class="btn" href="{%url 'new_death' batch.id%}">Add death</a>
+    </div>
+  </center>
 </div>
 </div>
 

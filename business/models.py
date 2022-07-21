@@ -1,8 +1,10 @@
+from hashlib import blake2b
+from tokenize import blank_re
 from django.db import models
 from django.db.models import Avg, Sum, Count, Max
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
-
+from django.db.models.signals import pre_save
 
 # Create your models here.
 
@@ -10,7 +12,7 @@ from cloudinary.models import CloudinaryField
 
 class Batch(models.Model):
 	farm = models.CharField(max_length=30)
-	picture = CloudinaryField('image',default='default.jpg')
+	picture = models.ImageField(upload_to = 'batch/',default='batch/default.jpg')
 	purchased = models.IntegerField()
 	unit_price = models.IntegerField()
 	projected_SP = models.IntegerField()
@@ -97,7 +99,6 @@ class Deaths(models.Model):
 			else:
 					table = int("".join(map(str,table)))
 					return table
-
 
 
 class ExpenseGroup(models.Model):
@@ -296,7 +297,6 @@ class Revenue(models.Model):
 class UserProfile(models.Model):
 	name = models.CharField(max_length=255)
 	email = models.EmailField(max_length=255)
-	bio = models.TextField()
 	picture = CloudinaryField('image')
 	editor = models.ForeignKey(User, on_delete=models.CASCADE)
 

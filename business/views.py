@@ -136,14 +136,17 @@ def batch(request, id):
 
 @login_required(login_url='/accounts/login/')
 def new_batch(request):
-	current_user = request.user			
+	print('test')
+	current_user = request.user	
+	print('test1')
 	if request.method == 'POST':
+		print('test2')
 		form = BatchForm(request.POST, request.FILES)
 		if form.is_valid():
 			name = form.save(commit=False)
 			name.user = current_user
 			name.save()
-		return redirect( 'home' )
+		return redirect( 'home',  current_user.id )
 	else:
 		form = BatchForm()
 			
@@ -265,7 +268,7 @@ def new_profile(request):
 
 				if form.is_valid():
 						profile = form.save(commit=False)
-						profile.user = current_user
+						profile.editor = current_user
 						profile.save()
 				return redirect('profile', current_user)
 		else:

@@ -40,15 +40,23 @@ if config('MODE')=='prod':
        
    }
 # production
+
 else:
- DATABASES = {
-     'default': {
-         'ENGINE': 'django.db.backends.postgresql',
-         'NAME': 'business',
-         'USER': 'mariga',
-        'PASSWORD':'password',
-     }
- }
+   DATABASES = {
+       'default': dj_database_url.config(
+           default=config('DATABASE_URL')
+       )
+   }
+
+# else:
+#  DATABASES = {
+#      'default': {
+#          'ENGINE': 'django.db.backends.postgresql',
+#          'NAME': 'business',
+#          'USER': 'mariga',
+#         'PASSWORD':'password',
+#      }
+#  }
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 

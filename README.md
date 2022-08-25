@@ -10,7 +10,7 @@ A website which helps you manage your farm and ensure profitability and growth t
 
 ## Demo
 
-You can demo the site **[here.](https://marigarated.herokuapp.com/)**
+You can demo the site **[here.](https://kuku-management.herokuapp.com/)**
 
 ## Features
 
